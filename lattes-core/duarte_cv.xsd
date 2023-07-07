@@ -1,0 +1,1429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CURRICULO-VITAE" type="CURRICULO-VITAEType"/>
+  <xs:complexType name="RESUMO-CVType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TEXTO-RESUMO-CV-RH"/>
+        <xs:attribute type="xs:string" name="TEXTO-RESUMO-CV-RH-EN"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ENDERECO-PROFISSIONALType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-EMPRESA"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO-EMPRESA"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-UNIDADE"/>
+        <xs:attribute type="xs:string" name="NOME-UNIDADE"/>
+        <xs:attribute type="xs:string" name="LOGRADOURO-COMPLEMENTO"/>
+        <xs:attribute type="xs:string" name="PAIS"/>
+        <xs:attribute type="xs:string" name="UF"/>
+        <xs:attribute type="xs:string" name="CEP"/>
+        <xs:attribute type="xs:string" name="CIDADE"/>
+        <xs:attribute type="xs:string" name="BAIRRO"/>
+        <xs:attribute type="xs:string" name="DDD"/>
+        <xs:attribute type="xs:string" name="TELEFONE"/>
+        <xs:attribute type="xs:string" name="RAMAL"/>
+        <xs:attribute type="xs:string" name="FAX"/>
+        <xs:attribute type="xs:string" name="CAIXA-POSTAL"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ENDERECOType">
+    <xs:sequence>
+      <xs:element type="ENDERECO-PROFISSIONALType" name="ENDERECO-PROFISSIONAL"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="FLAG-DE-PREFERENCIA"/>
+  </xs:complexType>
+  <xs:complexType name="GRADUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+        <xs:attribute type="xs:string" name="NIVEL"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTADOR"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO"/>
+        <xs:attribute type="xs:string" name="CODIGO-AREA-CURSO"/>
+        <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+        <xs:attribute type="xs:string" name="NOME-AGENCIA"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADOR"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO-CAPES"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-DE-CONCLUSAO-DE-CURSO-INGLES"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+        <xs:attribute type="xs:string" name="FORMACAO-ACADEMICA-TITULACAO"/>
+        <xs:attribute type="xs:string" name="TIPO-GRADUACAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-GRAD"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO-GRAD"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-OUTRA-GRAD"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO-OUTRA-GRAD"/>
+        <xs:attribute type="xs:string" name="NOME-ORIENTADOR-GRAD"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PALAVRAS-CHAVEType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-1" use="optional"/>
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-2" use="optional"/>
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-3" use="optional"/>
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-4" use="optional"/>
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-5" use="optional"/>
+        <xs:attribute type="xs:string" name="PALAVRA-CHAVE-6" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AREA-DO-CONHECIMENTO-1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-GRANDE-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-ESPECIALIDADE" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AREAS-DO-CONHECIMENTOType">
+    <xs:sequence>
+      <xs:element type="AREA-DO-CONHECIMENTO-1Type" name="AREA-DO-CONHECIMENTO-1"/>
+      <xs:element type="AREA-DO-CONHECIMENTO-2Type" name="AREA-DO-CONHECIMENTO-2" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SETORES-DE-ATIVIDADEType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SETOR-DE-ATIVIDADE-1" use="optional"/>
+        <xs:attribute type="xs:string" name="SETOR-DE-ATIVIDADE-2" use="optional"/>
+        <xs:attribute type="xs:string" name="SETOR-DE-ATIVIDADE-3" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MESTRADOType">
+    <xs:sequence>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE"/>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO"/>
+      <xs:element type="SETORES-DE-ATIVIDADEType" name="SETORES-DE-ATIVIDADE"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+    <xs:attribute type="xs:string" name="NIVEL"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+    <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO"/>
+    <xs:attribute type="xs:string" name="CODIGO-AREA-CURSO"/>
+    <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+    <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+    <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+    <xs:attribute type="xs:string" name="NOME-AGENCIA"/>
+    <xs:attribute type="xs:string" name="ANO-DE-OBTENCAO-DO-TITULO"/>
+    <xs:attribute type="xs:string" name="TITULO-DA-DISSERTACAO-TESE"/>
+    <xs:attribute type="xs:string" name="NOME-COMPLETO-DO-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="TIPO-MESTRADO"/>
+    <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO-CAPES"/>
+    <xs:attribute type="xs:string" name="TITULO-DA-DISSERTACAO-TESE-INGLES"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+    <xs:attribute type="xs:string" name="NOME-DO-CO-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO-DOUT"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-OUTRA-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO-OUTRA-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-ORIENTADOR-DOUT"/>
+    <xs:attribute type="xs:string" name="STATUS-OASISBR"/>
+    <xs:attribute type="xs:string" name="ID-OASIS"/>
+  </xs:complexType>
+  <xs:complexType name="AREA-DO-CONHECIMENTO-2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-GRANDE-AREA-DO-CONHECIMENTO"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AREA-DO-CONHECIMENTO"/>
+        <xs:attribute type="xs:string" name="NOME-DA-SUB-AREA-DO-CONHECIMENTO"/>
+        <xs:attribute type="xs:string" name="NOME-DA-ESPECIALIDADE"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DOUTORADOType">
+    <xs:sequence>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE"/>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO"/>
+      <xs:element type="SETORES-DE-ATIVIDADEType" name="SETORES-DE-ATIVIDADE"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+    <xs:attribute type="xs:string" name="NIVEL"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+    <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO"/>
+    <xs:attribute type="xs:string" name="CODIGO-AREA-CURSO"/>
+    <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+    <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+    <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+    <xs:attribute type="xs:string" name="NOME-AGENCIA"/>
+    <xs:attribute type="xs:string" name="ANO-DE-OBTENCAO-DO-TITULO"/>
+    <xs:attribute type="xs:string" name="TITULO-DA-DISSERTACAO-TESE"/>
+    <xs:attribute type="xs:string" name="NOME-COMPLETO-DO-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="TIPO-DOUTORADO"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO-DOUT"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-OUTRA-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO-OUTRA-DOUT"/>
+    <xs:attribute type="xs:string" name="NOME-ORIENTADOR-DOUT"/>
+    <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO-CAPES"/>
+    <xs:attribute type="xs:string" name="TITULO-DA-DISSERTACAO-TESE-INGLES"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+    <xs:attribute type="xs:string" name="NOME-DO-ORIENTADOR-CO-TUTELA"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-OUTRA-CO-TUTELA"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-CO-TUTELA"/>
+    <xs:attribute type="xs:string" name="NOME-DO-ORIENTADOR-SANDUICHE"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-OUTRA-SANDUICHE"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO-SANDUICHE"/>
+    <xs:attribute type="xs:string" name="NOME-DO-CO-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="STATUS-OASISBR"/>
+    <xs:attribute type="xs:string" name="ID-OASIS"/>
+  </xs:complexType>
+  <xs:complexType name="POS-DOUTORADOType">
+    <xs:sequence>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+    <xs:attribute type="xs:string" name="NIVEL"/>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+    <xs:attribute type="xs:string" name="ANO-DE-OBTENCAO-DO-TITULO"/>
+    <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+    <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+    <xs:attribute type="xs:string" name="NOME-AGENCIA"/>
+    <xs:attribute type="xs:string" name="STATUS-DO-ESTAGIO"/>
+    <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+    <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADOR"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO-CAPES"/>
+    <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO"/>
+    <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-INGLES"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+  </xs:complexType>
+  <xs:complexType name="ENSINO-FUNDAMENTAL-PRIMEIRO-GRAUType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+        <xs:attribute type="xs:string" name="NIVEL"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ENSINO-MEDIO-SEGUNDO-GRAUType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+        <xs:attribute type="xs:string" name="NIVEL"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="APERFEICOAMENTOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FORMACAO"/>
+        <xs:attribute type="xs:string" name="NIVEL"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-MONOGRAFIA"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTADOR"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO"/>
+        <xs:attribute type="xs:string" name="CODIGO-AREA-CURSO"/>
+        <xs:attribute type="xs:string" name="STATUS-DO-CURSO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-INICIO"/>
+        <xs:attribute type="xs:string" name="ANO-DE-CONCLUSAO"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+        <xs:attribute type="xs:string" name="NOME-AGENCIA"/>
+        <xs:attribute type="xs:string" name="CARGA-HORARIA"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-MONOGRAFIA-INGLES"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FORMACAO-ACADEMICA-TITULACAOType">
+    <xs:sequence>
+      <xs:element type="GRADUACAOType" name="GRADUACAO"/>
+      <xs:element type="MESTRADOType" name="MESTRADO"/>
+      <xs:element type="DOUTORADOType" name="DOUTORADO"/>
+      <xs:element type="POS-DOUTORADOType" name="POS-DOUTORADO"/>
+      <xs:element type="ENSINO-FUNDAMENTAL-PRIMEIRO-GRAUType" name="ENSINO-FUNDAMENTAL-PRIMEIRO-GRAU"/>
+      <xs:element type="ENSINO-MEDIO-SEGUNDO-GRAUType" name="ENSINO-MEDIO-SEGUNDO-GRAU"/>
+      <xs:element type="APERFEICOAMENTOType" name="APERFEICOAMENTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VINCULOSType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-HISTORICO" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO-DE-VINCULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ENQUADRAMENTO-FUNCIONAL" use="optional"/>
+        <xs:attribute type="xs:string" name="CARGA-HORARIA-SEMANAL" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DEDICACAO-EXCLUSIVA" use="optional"/>
+        <xs:attribute type="xs:string" name="MES-INICIO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-INICIO" use="optional"/>
+        <xs:attribute type="xs:string" name="MES-FIM" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-FIM" use="optional"/>
+        <xs:attribute type="xs:string" name="OUTRAS-INFORMACOES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-VINCULO-EMPREGATICIO" use="optional"/>
+        <xs:attribute type="xs:string" name="OUTRO-VINCULO-INFORMADO" use="optional"/>
+        <xs:attribute type="xs:string" name="OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO" use="optional"/>
+        <xs:attribute type="xs:string" name="OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="OUTRAS-INFORMACOES-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="LINHA-DE-PESQUISAType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-LINHA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-LINHA-DE-PESQUISA" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-LINHA-DE-PESQUISA-ATIVA" use="optional"/>
+        <xs:attribute type="xs:string" name="OBJETIVOS-LINHA-DE-PESQUISA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-LINHA-DE-PESQUISA-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="OBJETIVOS-LINHA-DE-PESQUISA-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PESQUISA-E-DESENVOLVIMENTOType">
+    <xs:sequence>
+      <xs:element type="LINHA-DE-PESQUISAType" name="LINHA-DE-PESQUISA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FUNCAO-ATIVIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="FLAG-PERIODO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-UNIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-UNIDADE" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ATIVIDADES-DE-PESQUISA-E-DESENVOLVIMENTOType">
+    <xs:sequence>
+      <xs:element type="PESQUISA-E-DESENVOLVIMENTOType" name="PESQUISA-E-DESENVOLVIMENTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ATUACAO-PROFISSIONALType">
+    <xs:sequence>
+      <xs:element type="VINCULOSType" name="VINCULOS"/>
+      <xs:element type="ATIVIDADES-DE-DIRECAO-E-ADMINISTRACAOType" name="ATIVIDADES-DE-DIRECAO-E-ADMINISTRACAO" minOccurs="0"/>
+      <xs:element type="ATIVIDADES-DE-PESQUISA-E-DESENVOLVIMENTOType" name="ATIVIDADES-DE-PESQUISA-E-DESENVOLVIMENTO" minOccurs="0"/>
+      <xs:element type="ATIVIDADES-DE-ENSINOType" name="ATIVIDADES-DE-ENSINO" minOccurs="0"/>
+      <xs:element type="ATIVIDADES-DE-PARTICIPACAO-EM-PROJETOType" name="ATIVIDADES-DE-PARTICIPACAO-EM-PROJETO" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+    <xs:attribute type="xs:string" name="SEQUENCIA-ATIVIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="SEQUENCIA-IMPORTANCIA" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DIRECAO-E-ADMINISTRACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FUNCAO-ATIVIDADE"/>
+        <xs:attribute type="xs:string" name="FLAG-PERIODO"/>
+        <xs:attribute type="xs:string" name="MES-INICIO"/>
+        <xs:attribute type="xs:string" name="ANO-INICIO"/>
+        <xs:attribute type="xs:string" name="MES-FIM"/>
+        <xs:attribute type="xs:string" name="ANO-FIM"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-UNIDADE"/>
+        <xs:attribute type="xs:string" name="FORMATO-CARGO-OU-FUNCAO"/>
+        <xs:attribute type="xs:string" name="CARGO-OU-FUNCAO"/>
+        <xs:attribute type="xs:string" name="NOME-UNIDADE"/>
+        <xs:attribute type="xs:string" name="CARGO-OU-FUNCAO-INGLES"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ATIVIDADES-DE-DIRECAO-E-ADMINISTRACAOType">
+    <xs:sequence>
+      <xs:element type="DIRECAO-E-ADMINISTRACAOType" name="DIRECAO-E-ADMINISTRACAO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DISCIPLINAType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-ESPECIFICACAO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ENSINOType">
+    <xs:sequence>
+      <xs:element type="DISCIPLINAType" name="DISCIPLINA"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FUNCAO-ATIVIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="FLAG-PERIODO" use="optional"/>
+    <xs:attribute type="xs:string" name="TIPO-ENSINO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ATIVIDADES-DE-ENSINOType">
+    <xs:sequence>
+      <xs:element type="ENSINOType" name="ENSINO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="INTEGRANTES-DO-PROJETOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-COMPLETO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-PARA-CITACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="ORDEM-DE-INTEGRACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RESPONSAVEL" use="optional"/>
+        <xs:attribute type="xs:string" name="NRO-ID-CNPQ" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="EQUIPE-DO-PROJETOType">
+    <xs:sequence>
+      <xs:element type="INTEGRANTES-DO-PROJETOType" name="INTEGRANTES-DO-PROJETO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PROJETO-DE-PESQUISAType">
+    <xs:sequence>
+      <xs:element type="EQUIPE-DO-PROJETOType" name="EQUIPE-DO-PROJETO"/>
+      <xs:element type="FINANCIADORES-DO-PROJETOType" name="FINANCIADORES-DO-PROJETO" minOccurs="0"/>
+      <xs:element type="PRODUCOES-CT-DO-PROJETOType" name="PRODUCOES-CT-DO-PROJETO" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PROJETO" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-DO-PROJETO" use="optional"/>
+    <xs:attribute type="xs:string" name="SITUACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO-GRADUACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO-ESPECIALIZACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO-MESTRADO-ACADEMICO" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO-MESTRADO-PROF" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO-DOUTORADO" use="optional"/>
+    <xs:attribute type="xs:string" name="DESCRICAO-DO-PROJETO" use="optional"/>
+    <xs:attribute type="xs:string" name="IDENTIFICADOR-PROJETO" use="optional"/>
+    <xs:attribute type="xs:string" name="DESCRICAO-DO-PROJETO-INGLES" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-DO-PROJETO-INGLES" use="optional"/>
+    <xs:attribute type="xs:string" name="FLAG-POTENCIAL-INOVACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-COORDENADOR-CERTIFICACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="DATA-CERTIFICACAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NUMERO_TECNICO_NIVEL_MEDIO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-PROJETOType">
+    <xs:sequence>
+      <xs:element type="PROJETO-DE-PESQUISAType" name="PROJETO-DE-PESQUISA"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-FUNCAO-ATIVIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="FLAG-PERIODO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-INICIO" use="optional"/>
+    <xs:attribute type="xs:string" name="MES-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="ANO-FIM" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+    <xs:attribute type="xs:string" name="CODIGO-UNIDADE" use="optional"/>
+    <xs:attribute type="xs:string" name="NOME-UNIDADE" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="FINANCIADOR-DO-PROJETOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-FINANCIADOR" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FINANCIADORES-DO-PROJETOType">
+    <xs:sequence>
+      <xs:element type="FINANCIADOR-DO-PROJETOType" name="FINANCIADOR-DO-PROJETO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PRODUCAO-CT-DO-PROJETOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO-CT" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-PRODUCAO-CT" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO-PRODUCAO-CT" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DA-PRODUCAO-CT-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PRODUCOES-CT-DO-PROJETOType">
+    <xs:sequence>
+      <xs:element type="PRODUCAO-CT-DO-PROJETOType" name="PRODUCAO-CT-DO-PROJETO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ATIVIDADES-DE-PARTICIPACAO-EM-PROJETOType">
+    <xs:sequence>
+      <xs:element type="PARTICIPACAO-EM-PROJETOType" name="PARTICIPACAO-EM-PROJETO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ATUACOES-PROFISSIONAISType">
+    <xs:sequence>
+      <xs:element type="ATUACAO-PROFISSIONALType" name="ATUACAO-PROFISSIONAL" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AREA-DE-ATUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="SEQUENCIA-AREA-DE-ATUACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-GRANDE-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-ESPECIALIDADE" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AREAS-DE-ATUACAOType">
+    <xs:sequence>
+      <xs:element type="AREA-DE-ATUACAOType" name="AREA-DE-ATUACAO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IDIOMAType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="DESCRICAO-DO-IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="PROFICIENCIA-DE-LEITURA" use="optional"/>
+        <xs:attribute type="xs:string" name="PROFICIENCIA-DE-FALA" use="optional"/>
+        <xs:attribute type="xs:string" name="PROFICIENCIA-DE-ESCRITA" use="optional"/>
+        <xs:attribute type="xs:string" name="PROFICIENCIA-DE-COMPREENSAO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="IDIOMASType">
+    <xs:sequence>
+      <xs:element type="IDIOMAType" name="IDIOMA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PREMIO-TITULOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-PREMIO-OU-TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-ENTIDADE-PROMOTORA" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-DA-PREMIACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-PREMIO-OU-TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PREMIOS-TITULOSType">
+    <xs:sequence>
+      <xs:element type="PREMIO-TITULOType" name="PREMIO-TITULO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-GERAISType">
+    <xs:sequence>
+      <xs:element type="RESUMO-CVType" name="RESUMO-CV"/>
+      <xs:element type="ENDERECOType" name="ENDERECO"/>
+      <xs:element type="FORMACAO-ACADEMICA-TITULACAOType" name="FORMACAO-ACADEMICA-TITULACAO"/>
+      <xs:element type="ATUACOES-PROFISSIONAISType" name="ATUACOES-PROFISSIONAIS"/>
+      <xs:element type="AREAS-DE-ATUACAOType" name="AREAS-DE-ATUACAO"/>
+      <xs:element type="IDIOMASType" name="IDIOMAS"/>
+      <xs:element type="PREMIOS-TITULOSType" name="PREMIOS-TITULOS"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="NOME-COMPLETO"/>
+    <xs:attribute type="xs:string" name="NOME-EM-CITACOES-BIBLIOGRAFICAS"/>
+    <xs:attribute type="xs:string" name="NACIONALIDADE"/>
+    <xs:attribute type="xs:string" name="PAIS-DE-NASCIMENTO"/>
+    <xs:attribute type="xs:string" name="UF-NASCIMENTO"/>
+    <xs:attribute type="xs:string" name="CIDADE-NASCIMENTO"/>
+    <xs:attribute type="xs:string" name="PERMISSAO-DE-DIVULGACAO"/>
+    <xs:attribute type="xs:string" name="DATA-FALECIMENTO"/>
+    <xs:attribute type="xs:string" name="SIGLA-PAIS-NACIONALIDADE"/>
+    <xs:attribute type="xs:string" name="PAIS-DE-NACIONALIDADE"/>
+    <xs:attribute type="xs:string" name="ORCID-ID"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DO-TRABALHOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS-DO-EVENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DO-TRABALHOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="CLASSIFICACAO-DO-EVENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="CIDADE-DO-EVENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-DE-REALIZACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DOS-ANAIS-OU-PROCEEDINGS" use="optional"/>
+        <xs:attribute type="xs:string" name="VOLUME" use="optional"/>
+        <xs:attribute type="xs:string" name="FASCICULO" use="optional"/>
+        <xs:attribute type="xs:string" name="SERIE" use="optional"/>
+        <xs:attribute type="xs:string" name="PAGINA-INICIAL" use="optional"/>
+        <xs:attribute type="xs:string" name="PAGINA-FINAL" use="optional"/>
+        <xs:attribute type="xs:string" name="ISBN" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-EDITORA" use="optional"/>
+        <xs:attribute type="xs:string" name="CIDADE-DA-EDITORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AUTORESType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-COMPLETO-DO-AUTOR" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-PARA-CITACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="ORDEM-DE-AUTORIA" use="optional"/>
+        <xs:attribute type="xs:string" name="NRO-ID-CNPQ" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TRABALHO-EM-EVENTOSType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DO-TRABALHOType" name="DADOS-BASICOS-DO-TRABALHO"/>
+      <xs:element type="DETALHAMENTO-DO-TRABALHOType" name="DETALHAMENTO-DO-TRABALHO"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="TRABALHOS-EM-EVENTOSType">
+    <xs:sequence>
+      <xs:element type="TRABALHO-EM-EVENTOSType" name="TRABALHO-EM-EVENTOS" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DO-ARTIGOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-ARTIGO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO-DO-ARTIGO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS-DE-PUBLICACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-ARTIGO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DO-ARTIGOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TITULO-DO-PERIODICO-OU-REVISTA" use="optional"/>
+        <xs:attribute type="xs:string" name="ISSN" use="optional"/>
+        <xs:attribute type="xs:string" name="VOLUME" use="optional"/>
+        <xs:attribute type="xs:string" name="FASCICULO" use="optional"/>
+        <xs:attribute type="xs:string" name="SERIE" use="optional"/>
+        <xs:attribute type="xs:string" name="PAGINA-INICIAL" use="optional"/>
+        <xs:attribute type="xs:string" name="PAGINA-FINAL" use="optional"/>
+        <xs:attribute type="xs:string" name="LOCAL-DE-PUBLICACAO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ARTIGO-PUBLICADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DO-ARTIGOType" name="DADOS-BASICOS-DO-ARTIGO"/>
+      <xs:element type="DETALHAMENTO-DO-ARTIGOType" name="DETALHAMENTO-DO-ARTIGO"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="INFORMACOES-ADICIONAISType" name="INFORMACOES-ADICIONAIS" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+    <xs:attribute type="xs:string" name="ORDEM-IMPORTANCIA" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="INFORMACOES-ADICIONAISType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="DESCRICAO-INFORMACOES-ADICIONAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="DESCRICAO-INFORMACOES-ADICIONAIS-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ARTIGOS-PUBLICADOSType">
+    <xs:sequence>
+      <xs:element type="ARTIGO-PUBLICADOType" name="ARTIGO-PUBLICADO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DE-OUTRA-PRODUCAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS-DE-PUBLICACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="NATUREZA-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DE-OUTRA-PRODUCAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="EDITORA" use="optional"/>
+        <xs:attribute type="xs:string" name="CIDADE-DA-EDITORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-DE-PAGINAS" use="optional"/>
+        <xs:attribute type="xs:string" name="ISSN-ISBN" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OUTRA-PRODUCAO-BIBLIOGRAFICAType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DE-OUTRA-PRODUCAOType" name="DADOS-BASICOS-DE-OUTRA-PRODUCAO"/>
+      <xs:element type="DETALHAMENTO-DE-OUTRA-PRODUCAOType" name="DETALHAMENTO-DE-OUTRA-PRODUCAO"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="INFORMACOES-ADICIONAISType" name="INFORMACOES-ADICIONAIS" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DEMAIS-TIPOS-DE-PRODUCAO-BIBLIOGRAFICAType">
+    <xs:sequence>
+      <xs:element type="OUTRA-PRODUCAO-BIBLIOGRAFICAType" name="OUTRA-PRODUCAO-BIBLIOGRAFICA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ARTIGO-ACEITO-PARA-PUBLICACAOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DO-ARTIGOType" name="DADOS-BASICOS-DO-ARTIGO"/>
+      <xs:element type="DETALHAMENTO-DO-ARTIGOType" name="DETALHAMENTO-DO-ARTIGO"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ARTIGOS-ACEITOS-PARA-PUBLICACAOType">
+    <xs:sequence>
+      <xs:element type="ARTIGO-ACEITO-PARA-PUBLICACAOType" name="ARTIGO-ACEITO-PARA-PUBLICACAO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PRODUCAO-BIBLIOGRAFICAType">
+    <xs:sequence>
+      <xs:element type="TRABALHOS-EM-EVENTOSType" name="TRABALHOS-EM-EVENTOS"/>
+      <xs:element type="ARTIGOS-PUBLICADOSType" name="ARTIGOS-PUBLICADOS"/>
+      <xs:element type="DEMAIS-TIPOS-DE-PRODUCAO-BIBLIOGRAFICAType" name="DEMAIS-TIPOS-DE-PRODUCAO-BIBLIOGRAFICA"/>
+      <xs:element type="ARTIGOS-ACEITOS-PARA-PUBLICACAOType" name="ARTIGOS-ACEITOS-PARA-PUBLICACAO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DO-SOFTWAREType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-SOFTWARE" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-SOFTWARE-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-POTENCIAL-INOVACAO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DO-SOFTWAREType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="FINALIDADE" use="optional"/>
+        <xs:attribute type="xs:string" name="PLATAFORMA" use="optional"/>
+        <xs:attribute type="xs:string" name="AMBIENTE" use="optional"/>
+        <xs:attribute type="xs:string" name="DISPONIBILIDADE" use="optional"/>
+        <xs:attribute type="xs:string" name="INSTITUICAO-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="FINALIDADE-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SOFTWAREType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DO-SOFTWAREType" name="DADOS-BASICOS-DO-SOFTWARE"/>
+      <xs:element type="DETALHAMENTO-DO-SOFTWAREType" name="DETALHAMENTO-DO-SOFTWARE"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE" minOccurs="0"/>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO" minOccurs="0"/>
+      <xs:element type="SETORES-DE-ATIVIDADEType" name="SETORES-DE-ATIVIDADE" minOccurs="0"/>
+      <xs:element type="INFORMACOES-ADICIONAISType" name="INFORMACOES-ADICIONAIS" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DO-TRABALHO-TECNICOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-TECNICO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-TECNICO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DO-TRABALHO-TECNICOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="FINALIDADE" use="optional"/>
+        <xs:attribute type="xs:string" name="DURACAO-EM-MESES" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-DE-PAGINAS" use="optional"/>
+        <xs:attribute type="xs:string" name="DISPONIBILIDADE" use="optional"/>
+        <xs:attribute type="xs:string" name="INSTITUICAO-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="CIDADE-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="FINALIDADE-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TRABALHO-TECNICOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DO-TRABALHO-TECNICOType" name="DADOS-BASICOS-DO-TRABALHO-TECNICO"/>
+      <xs:element type="DETALHAMENTO-DO-TRABALHO-TECNICOType" name="DETALHAMENTO-DO-TRABALHO-TECNICO"/>
+      <xs:element type="AUTORESType" name="AUTORES"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-APRESENTACAO-DE-TRABALHOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-APRESENTACAO-DE-TRABALHOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="INSTITUICAO-PROMOTORA" use="optional"/>
+        <xs:attribute type="xs:string" name="LOCAL-DA-APRESENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CIDADE-DA-APRESENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="APRESENTACAO-DE-TRABALHOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-APRESENTACAO-DE-TRABALHOType" name="DADOS-BASICOS-DA-APRESENTACAO-DE-TRABALHO"/>
+      <xs:element type="DETALHAMENTO-DA-APRESENTACAO-DE-TRABALHOType" name="DETALHAMENTO-DA-APRESENTACAO-DE-TRABALHO"/>
+      <xs:element type="AUTORESType" name="AUTORES" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DEMAIS-TIPOS-DE-PRODUCAO-TECNICAType">
+    <xs:sequence>
+      <xs:element type="APRESENTACAO-DE-TRABALHOType" name="APRESENTACAO-DE-TRABALHO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PRODUCAO-TECNICAType">
+    <xs:sequence>
+      <xs:element type="SOFTWAREType" name="SOFTWARE" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="TRABALHO-TECNICOType" name="TRABALHO-TECNICO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="DEMAIS-TIPOS-DE-PRODUCAO-TECNICAType" name="DEMAIS-TIPOS-DE-PRODUCAO-TECNICA"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TIPO-DE-ORIENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-DE-PAGINAS" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType" name="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADO"/>
+      <xs:element type="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType" name="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-MESTRADO"/>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE" minOccurs="0"/>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TIPO-DE-ORIENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-DE-PAGINAS" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType" name="DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO"/>
+      <xs:element type="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType" name="DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDASType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDASType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO-DE-ORIENTACAO-CONCLUIDA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-DE-PAGINAS" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OUTRAS-ORIENTACOES-CONCLUIDASType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDASType" name="DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS"/>
+      <xs:element type="DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDASType" name="DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS"/>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACOES-CONCLUIDASType">
+    <xs:sequence>
+      <xs:element type="ORIENTACOES-CONCLUIDAS-PARA-MESTRADOType" name="ORIENTACOES-CONCLUIDAS-PARA-MESTRADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ORIENTACOES-CONCLUIDAS-PARA-DOUTORADOType" name="ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="OUTRAS-ORIENTACOES-CONCLUIDASType" name="OUTRAS-ORIENTACOES-CONCLUIDAS" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OUTRA-PRODUCAOType">
+    <xs:sequence>
+      <xs:element type="ORIENTACOES-CONCLUIDASType" name="ORIENTACOES-CONCLUIDAS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-CANDIDATO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPANTE-BANCAType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-COMPLETO-DO-PARTICIPANTE-DA-BANCA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DA-BANCA" use="optional"/>
+        <xs:attribute type="xs:string" name="ORDEM-PARTICIPANTE" use="optional"/>
+        <xs:attribute type="xs:string" name="NRO-ID-CNPQ" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-BANCA-DE-MESTRADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADOType" name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO"/>
+      <xs:element type="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADOType" name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO"/>
+      <xs:element type="PARTICIPANTE-BANCAType" name="PARTICIPANTE-BANCA" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PALAVRAS-CHAVEType" name="PALAVRAS-CHAVE" minOccurs="0"/>
+      <xs:element type="AREAS-DO-CONHECIMENTOType" name="AREAS-DO-CONHECIMENTO" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-CANDIDATO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-BANCA-DE-DOUTORADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADOType" name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO"/>
+      <xs:element type="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADOType" name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO"/>
+      <xs:element type="PARTICIPANTE-BANCAType" name="PARTICIPANTE-BANCA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-CANDIDATO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType" name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAO"/>
+      <xs:element type="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType" name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAO"/>
+      <xs:element type="PARTICIPANTE-BANCAType" name="PARTICIPANTE-BANCA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-CANDIDATO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-BANCA-DE-GRADUACAOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAOType" name="DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO"/>
+      <xs:element type="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAOType" name="DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO"/>
+      <xs:element type="PARTICIPANTE-BANCAType" name="PARTICIPANTE-BANCA" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-BANCA-TRABALHOS-CONCLUSAOType">
+    <xs:sequence>
+      <xs:element type="PARTICIPACAO-EM-BANCA-DE-MESTRADOType" name="PARTICIPACAO-EM-BANCA-DE-MESTRADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PARTICIPACAO-EM-BANCA-DE-DOUTORADOType" name="PARTICIPACAO-EM-BANCA-DE-DOUTORADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAOType" name="PARTICIPACAO-EM-BANCA-DE-EXAME-QUALIFICACAO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="PARTICIPACAO-EM-BANCA-DE-GRADUACAOType" name="PARTICIPACAO-EM-BANCA-DE-GRADUACAO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-PARTICIPACAO-EM-ENCONTROType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA"/>
+        <xs:attribute type="xs:string" name="TITULO"/>
+        <xs:attribute type="xs:string" name="ANO"/>
+        <xs:attribute type="xs:string" name="PAIS"/>
+        <xs:attribute type="xs:string" name="IDIOMA"/>
+        <xs:attribute type="xs:string" name="MEIO-DE-DIVULGACAO"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE-DO-TRABALHO"/>
+        <xs:attribute type="xs:string" name="FLAG-RELEVANCIA"/>
+        <xs:attribute type="xs:string" name="TIPO-PARTICIPACAO"/>
+        <xs:attribute type="xs:string" name="FORMA-PARTICIPACAO"/>
+        <xs:attribute type="xs:string" name="DOI"/>
+        <xs:attribute type="xs:string" name="TITULO-INGLES"/>
+        <xs:attribute type="xs:string" name="FLAG-DIVULGACAO-CIENTIFICA"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-PARTICIPACAO-EM-ENCONTROType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="LOCAL-DO-EVENTO"/>
+        <xs:attribute type="xs:string" name="CIDADE-DO-EVENTO"/>
+        <xs:attribute type="xs:string" name="NOME-DO-EVENTO-INGLES"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPANTE-DE-EVENTOS-CONGRESSOSType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-COMPLETO-DO-PARTICIPANTE-DE-EVENTOS-CONGRESSOS"/>
+        <xs:attribute type="xs:string" name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DE-EVENTOS-CONGRESSOS"/>
+        <xs:attribute type="xs:string" name="ORDEM-PARTICIPANTE"/>
+        <xs:attribute type="xs:string" name="NRO-ID-CNPQ"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-ENCONTROType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-PARTICIPACAO-EM-ENCONTROType" name="DADOS-BASICOS-DA-PARTICIPACAO-EM-ENCONTRO"/>
+      <xs:element type="DETALHAMENTO-DA-PARTICIPACAO-EM-ENCONTROType" name="DETALHAMENTO-DA-PARTICIPACAO-EM-ENCONTRO"/>
+      <xs:element type="PARTICIPANTE-DE-EVENTOS-CONGRESSOSType" name="PARTICIPANTE-DE-EVENTOS-CONGRESSOS"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO"/>
+  </xs:complexType>
+  <xs:complexType name="PARTICIPACAO-EM-EVENTOS-CONGRESSOSType">
+    <xs:sequence>
+      <xs:element type="PARTICIPACAO-EM-ENCONTROType" name="PARTICIPACAO-EM-ENCONTRO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TIPO" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TIPO-DE-ORIENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTANDO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTADO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType" name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADO"/>
+      <xs:element type="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType" name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-MESTRADO"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO" use="optional"/>
+        <xs:attribute type="xs:string" name="ANO" use="optional"/>
+        <xs:attribute type="xs:string" name="PAIS" use="optional"/>
+        <xs:attribute type="xs:string" name="IDIOMA" use="optional"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE" use="optional"/>
+        <xs:attribute type="xs:string" name="DOI" use="optional"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="TIPO-DE-ORIENTACAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTANDO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA" use="optional"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTANDO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType" name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADO"/>
+      <xs:element type="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType" name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADO"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NATUREZA"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO"/>
+        <xs:attribute type="xs:string" name="ANO"/>
+        <xs:attribute type="xs:string" name="PAIS"/>
+        <xs:attribute type="xs:string" name="IDIOMA"/>
+        <xs:attribute type="xs:string" name="HOME-PAGE"/>
+        <xs:attribute type="xs:string" name="DOI"/>
+        <xs:attribute type="xs:string" name="TITULO-DO-TRABALHO-INGLES"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="NOME-DO-ORIENTANDO"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO"/>
+        <xs:attribute type="xs:string" name="CODIGO-CURSO"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO"/>
+        <xs:attribute type="xs:string" name="FLAG-BOLSA"/>
+        <xs:attribute type="xs:string" name="CODIGO-AGENCIA-FINANCIADORA"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AGENCIA"/>
+        <xs:attribute type="xs:string" name="NUMERO-ID-ORIENTANDO"/>
+        <xs:attribute type="xs:string" name="NOME-CURSO-INGLES"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType">
+    <xs:sequence>
+      <xs:element type="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType" name="DADOS-BASICOS-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAO"/>
+      <xs:element type="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType" name="DETALHAMENTO-DA-ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAO"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SEQUENCIA-PRODUCAO"/>
+  </xs:complexType>
+  <xs:complexType name="ORIENTACOES-EM-ANDAMENTOType">
+    <xs:sequence>
+      <xs:element type="ORIENTACAO-EM-ANDAMENTO-DE-MESTRADOType" name="ORIENTACAO-EM-ANDAMENTO-DE-MESTRADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADOType" name="ORIENTACAO-EM-ANDAMENTO-DE-DOUTORADO" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAOType" name="ORIENTACAO-EM-ANDAMENTO-DE-GRADUACAO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="INFORMACAO-ADICIONAL-INSTITUICAOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="SIGLA-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="SIGLA-UF-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="SIGLA-PAIS-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-PAIS-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-AGENCIA-FOMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="FLAG-INSTITUICAO-DE-ENSINO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="INFORMACOES-ADICIONAIS-INSTITUICOESType">
+    <xs:sequence>
+      <xs:element type="INFORMACAO-ADICIONAL-INSTITUICAOType" name="INFORMACAO-ADICIONAL-INSTITUICAO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="INFORMACAO-ADICIONAL-CURSOType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="CODIGO-CURSO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-ORGAO" use="optional"/>
+        <xs:attribute type="xs:string" name="CODIGO-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-INSTITUICAO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-GRANDE-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" use="optional"/>
+        <xs:attribute type="xs:string" name="NOME-DA-ESPECIALIDADE" use="optional"/>
+        <xs:attribute type="xs:string" name="NIVEL-CURSO" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="INFORMACOES-ADICIONAIS-CURSOSType">
+    <xs:sequence>
+      <xs:element type="INFORMACAO-ADICIONAL-CURSOType" name="INFORMACAO-ADICIONAL-CURSO" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DADOS-COMPLEMENTARESType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="FORMACAO-COMPLEMENTAR"/>
+      <xs:element type="PARTICIPACAO-EM-BANCA-TRABALHOS-CONCLUSAOType" name="PARTICIPACAO-EM-BANCA-TRABALHOS-CONCLUSAO"/>
+      <xs:element type="PARTICIPACAO-EM-EVENTOS-CONGRESSOSType" name="PARTICIPACAO-EM-EVENTOS-CONGRESSOS"/>
+      <xs:element type="ORIENTACOES-EM-ANDAMENTOType" name="ORIENTACOES-EM-ANDAMENTO"/>
+      <xs:element type="INFORMACOES-ADICIONAIS-INSTITUICOESType" name="INFORMACOES-ADICIONAIS-INSTITUICOES"/>
+      <xs:element type="INFORMACOES-ADICIONAIS-CURSOSType" name="INFORMACOES-ADICIONAIS-CURSOS"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CURRICULO-VITAEType">
+    <xs:sequence>
+      <xs:element type="DADOS-GERAISType" name="DADOS-GERAIS"/>
+      <xs:element type="PRODUCAO-BIBLIOGRAFICAType" name="PRODUCAO-BIBLIOGRAFICA"/>
+      <xs:element type="PRODUCAO-TECNICAType" name="PRODUCAO-TECNICA"/>
+      <xs:element type="OUTRA-PRODUCAOType" name="OUTRA-PRODUCAO"/>
+      <xs:element type="DADOS-COMPLEMENTARESType" name="DADOS-COMPLEMENTARES"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="SISTEMA-ORIGEM-XML"/>
+    <xs:attribute type="xs:string" name="NUMERO-IDENTIFICADOR"/>
+    <xs:attribute type="xs:string" name="DATA-ATUALIZACAO"/>
+    <xs:attribute type="xs:string" name="HORA-ATUALIZACAO"/>
+  </xs:complexType>
+</xs:schema>

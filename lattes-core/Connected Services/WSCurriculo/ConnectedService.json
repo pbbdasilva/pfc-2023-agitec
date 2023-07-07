@@ -1,0 +1,15 @@
+{
+  "providerId": "Microsoft.Tools.ServiceModel.Svcutil",
+  "version": "2.0.3",
+  "ExtendedData": {
+    "inputs": [
+      "http://servicosweb.cnpq.br/srvcurriculo/WSCurriculo?wsdl"
+    ],
+    "namespaceMappings": [
+      "*, lattes_core.WSCurriculo"
+    ],
+    "outputFile": "WSCurriculo.cs",
+    "targetFramework": "net7.0",
+    "typeReuseMode": "All"
+  }
+}
