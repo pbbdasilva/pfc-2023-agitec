@@ -19,6 +19,8 @@ public class CurriculumController : Controller
         string cnpq_id = "9591256136167135";
         var zippedCv = await _lattesClient.getCurriculoCompactadoAsync(cnpq_id);
         var s = System.Text.Encoding.UTF8.GetString(zippedCv);
+        // var interpreter = new CVInterpreter();
+        Console.WriteLine("ae");
         return Ok(zippedCv);
     }
 }
