@@ -9,8 +9,9 @@ public class CVInterpreter {
     public CVInterpreter (){
         CVList = new List<XElement>();
     }
-    private XElement LoadXml(string path) {
+    private XElement LoadXml(string filename) {
         XElement cv;
+        string path = Environment.GetEnvironmentVariable("CVPath") + filename + ".xml";
         try {
             cv = XElement.Load(path);
         } catch (Exception e) {
@@ -23,11 +24,9 @@ public class CVInterpreter {
         CVList.Add(LoadXml(path));
     }
     public lattes_core.DTO.CURRICULOVITAE rawCV(string filename) {
-        string path = Environment.GetEnvironmentVariable("CVPath") + filename + ".xml";
-        var tree = LoadXml(path);
+        var tree = LoadXml(filename);
         TextReader reader = new StringReader(tree.ToString());
         return (lattes_core.DTO.CURRICULOVITAE) serializer.Deserialize(reader);
-        
     }
 
 }
