@@ -18,8 +18,11 @@ public class Idiom {
 public class CurriculumVitae
 {
 	public CurriculumVitae(){}
-	public CurriculumVitae(CurriculumVitaeDTO cv)
+	public CurriculumVitae(CurriculumVitaeDTO? cv)
 	{
+		if (cv is null)
+			return;
+		
 		Author = cv.DADOSGERAIS.NOMECOMPLETO;
 		Summary = cv.DADOSGERAIS.RESUMOCV.TEXTORESUMOCVRH;
 		Id = cv.NUMEROIDENTIFICADOR;
@@ -34,8 +37,8 @@ public class CurriculumVitae
 		// AdditionalInfoList = cv.DADOSCOMPLEMENTARES.Select(info => info.DADOSCOMPLEMENTARES).ToList();
 	}
 
-	public string Author { get; set; }
-    public string Id { get; set; }
+	public string? Author { get; set; }
+    public string? Id { get; set; }
     public string? Summary { get; set; }
     public List<Idiom>? Idioms {  get; set; }
     public List<string>? ActingAreas { get; set; }
