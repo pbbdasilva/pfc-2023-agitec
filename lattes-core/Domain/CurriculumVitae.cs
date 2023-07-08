@@ -1,25 +1,45 @@
+using lattes_core.DTO;
+using CurriculumVitaeDTO = lattes_core.DTO.CURRICULOVITAE;
+
 namespace lattes_core.Domain;
 public enum NiveisIdioma {
     Pouco,
     Razoavelmente,
     Bem
 }
-public class Idioma {
-    public string Nome { get; set; }
-    public string Leitura { get; set; }
-    public string Fala { get; set;}
-    public string Escrita { get; set; }
-    public string Compreenssao { get; set;}
+public class Idiom {
+    public string Name { get; set; }
+    public string Reading { get; set; }
+    public string Speaking { get; set;}
+    public string Writing { get; set; }
+    public string Comprehension { get; set;}
 }
 
 public class CurriculumVitae
 {
-    public string Nome { get; set; }
+	public CurriculumVitae(){}
+	public CurriculumVitae(CurriculumVitaeDTO cv)
+	{
+		Author = cv.DADOSGERAIS.NOMECOMPLETO;
+		Summary = cv.DADOSGERAIS.RESUMOCV.TEXTORESUMOCVRH;
+		Id = cv.NUMEROIDENTIFICADOR;
+		// Idioms = cv.DADOSGERAIS.IDIOMAS.Select(idiom => new Idiom {
+		// 	Name = idiom.,
+		// 	Reading = idiom.LEITURA,
+		// 	Speaking = idiom.FALA,
+		// 	Writing = idiom.ESCRITA,
+		// 	Comprehension = idiom.COMPREENSAO
+		// }).ToList();
+		// ActingAreas = cv.ATUACOESPROFISSIONAIS.Select(area => area.ATUACAOPROFISSIONAL).ToList();
+		// AdditionalInfoList = cv.DADOSCOMPLEMENTARES.Select(info => info.DADOSCOMPLEMENTARES).ToList();
+	}
+
+	public string Author { get; set; }
     public string Id { get; set; }
-    public string? ResumoCV { get; set; }
-    public List<Idioma>? Idiomas {  get; set; }
-    public List<string>? AreasDeAtuacao { get; set; }
-    public List<string>? InformacoesAdicionais { get; set; }
+    public string? Summary { get; set; }
+    public List<Idiom>? Idioms {  get; set; }
+    public List<string>? ActingAreas { get; set; }
+    public List<string>? AdditionalInfoList { get; set; }
 	
 }
 
@@ -42,5 +62,5 @@ dados gerais
 	atividades de estagio
 	atividades de direcao e administracao
 	atividades de participacao em projeto
-		nome do projeto
+		nomeï¿½doï¿½projeto
 */
