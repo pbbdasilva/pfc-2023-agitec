@@ -4,11 +4,11 @@ namespace lattes_core.Services;
 
 public class MongoConnector
 {
-    private readonly string _connectionUsername = "admin";
-    private readonly string _connectionPassword = "sYJ4KLacrTQ5vYd";
+    private readonly string _connectionUsername = "pfc-admin";
+    private readonly string _connectionPassword = "8VpzGHa63nQl7Ifh";
 
-    private string GetConnectionUrl 
-        => $"mongodb+srv://{_connectionUsername}:{_connectionPassword}.8zno4lk.mongodb.net/?retryWrites=true&w=majority&connect=replicaSet";
+    private string GetConnectionUrl
+        => $"mongodb+srv://{_connectionUsername}:{_connectionPassword}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority";
     private MongoClient GetConnection
     {
         get
