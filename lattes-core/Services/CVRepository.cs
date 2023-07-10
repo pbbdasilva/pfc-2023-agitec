@@ -1,27 +1,27 @@
 using lattes_core.Domain;
+using MongoDB.Driver;
 
 namespace lattes_core.Services;
 
 public interface ICVRepository
 {
-    void Save(string filename);
+    void Save(CurriculumVitae cv);
 }
 
 public class CVRepository : ICVRepository
 {
     private readonly MongoConnector _mongoConnector;
-    private readonly CVParser _cvParser;
 
-    public CVRepository(CVParser cvParser, MongoConnector mongoConnector)
+    public CVRepository(MongoConnector mongoConnector)
     {
-        _cvParser = cvParser;
         _mongoConnector = mongoConnector;
     }
     
-    public void Save(string filename)
+    public void Save(CurriculumVitae cv)
     {
-        var cv = _cvParser.ParseCV(filename);
         var collection = _mongoConnector.GetCollection<CurriculumVitae>("lattes", "resumes");
-        collection.InsertOne(cv);
+        var query = Builders<CurriculumVitae>.Filter.Eq(x => x.Id, cv.Id);
+        var update = Builders<CurriculumVitae>.Update.Set(x => x, cv);
+        collection.UpdateOne(query, update, new UpdateOptions{ IsUpsert = true });
     }
 }

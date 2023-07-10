@@ -1,4 +1,4 @@
-using System.Text;
+using lattes_core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lattes_core.Controllers;
@@ -7,21 +7,24 @@ namespace lattes_core.Controllers;
 [Route("cv")]
 public class CurriculumController : Controller
 {
-    private readonly WSCurriculo.WSCurriculoClient _lattesClient;
-    public CurriculumController(WSCurriculo.WSCurriculoClient lattesClient)
+    private readonly CVParser _cvParser;
+    private readonly ICVRepository _cvRepository;
+    public CurriculumController(ICVRepository cvRepository, CVParser cvParser)
     {
-        _lattesClient = lattesClient;
+        _cvRepository = cvRepository;
+        _cvParser = cvParser;
     }
 
     [HttpGet]
     public async Task<IActionResult> Test()
     {
-        string cnpq_id = "9591256136167135";
-        var zippedCv = await _lattesClient.getCurriculoCompactadoAsync(cnpq_id);
-        var s = System.Text.Encoding.UTF8.GetString(zippedCv);
-        var parser = new CVParser();
-        var cvDoXML = parser.ParseCV("duarte_cv");
-        Console.WriteLine("ae");
-        return Ok(zippedCv);
+        // string cnpq_id = "9591256136167135";
+        // var zippedCv = await _lattesClient.getCurriculoCompactadoAsync(cnpq_id);
+        // var s = System.Text.Encoding.UTF8.GetString(zippedCv);
+        // var parser = new CVParser();
+        // var cvDoXML = parser.ParseCV("duarte_cv");
+        var cv = _cvParser.ParseCV("duarte_cv");
+        _cvRepository.Save(cv);
+        return Ok();
     }
 }

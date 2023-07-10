@@ -1,6 +1,5 @@
 ﻿using System.Xml.Linq;
 using System.Xml.Serialization;
-using lattes_core.DTO;
 using lattes_core.Domain;
 using CurriculumVitaeDTO = lattes_core.DTO.CURRICULOVITAE;
 
