@@ -25,6 +25,7 @@ public class CurriculumController : Controller
         // var cvDoXML = parser.ParseCV("duarte_cv");
         var cv = _cvParser.ParseCV("duarte_cv");
         _cvRepository.Save(cv);
-        return Ok();
+        return Ok(cv);
     }
+    
 }
