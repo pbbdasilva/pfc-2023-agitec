@@ -1,4 +1,4 @@
-using lattes_core.Services;
+using lattes_core.Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace lattes_core.Controllers;
@@ -7,24 +7,19 @@ namespace lattes_core.Controllers;
 [Route("cv")]
 public class CurriculumController : Controller
 {
-    private readonly CVParser _cvParser;
-    private readonly ICVRepository _cvRepository;
-    public CurriculumController(ICVRepository cvRepository, CVParser cvParser)
+    private readonly CurriculumService _service;
+    public CurriculumController(CurriculumService service)
     {
-        _cvRepository = cvRepository;
-        _cvParser = cvParser;
+        _service = service;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Test()
+    [HttpGet("{id}")]
+    public async Task<IActionResult> ProcessCurriculumByCnpqId([FromRoute] string id)
     {
-        // string cnpq_id = "9591256136167135";
-        // var zippedCv = await _lattesClient.getCurriculoCompactadoAsync(cnpq_id);
-        // var s = System.Text.Encoding.UTF8.GetString(zippedCv);
-        // var parser = new CVParser();
-        // var cvDoXML = parser.ParseCV("duarte_cv");
-        var cv = _cvParser.ParseCV("duarte_cv");
-        _cvRepository.Save(cv);
+        var cv = await _service.ProcessCurriculumByCnpqId(id);
+        if (cv is null)
+            return NotFound();
+
         return Ok(cv);
     }
     

@@ -1,3 +1,4 @@
+using lattes_core.Domain;
 using lattes_core.Services;
 
 namespace lattes_core;
@@ -10,6 +11,8 @@ public static class Startup
         builder.Services.AddScoped<MongoConnector>();
         builder.Services.AddScoped<ICVRepository, CVRepository>();
         builder.Services.AddSingleton<CVParser>();
+        builder.Services.AddSingleton<CVDecoder>();
+        builder.Services.AddScoped<CurriculumService>();
         builder.Services.AddControllers();
     }
 }

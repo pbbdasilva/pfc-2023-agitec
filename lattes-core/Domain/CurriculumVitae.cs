@@ -43,7 +43,11 @@ public class CurriculumVitae
     public List<Idiom>? Idioms {  get; set; }
     public List<string>? ActingAreas { get; set; }
     public List<string>? AdditionalInfoList { get; set; }
-	
+
+    public static string GenerateFileName(string id)
+    {
+	    return $"cv_{id}.xml";
+    }
 }
 
 /*
