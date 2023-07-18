@@ -2,18 +2,6 @@ using lattes_core.DTO;
 using CurriculumVitaeDTO = lattes_core.DTO.CURRICULOVITAE;
 
 namespace lattes_core.Domain;
-public enum NiveisIdioma {
-    Pouco,
-    Razoavelmente,
-    Bem
-}
-public class Idiom {
-    public string Name { get; set; }
-    public string Reading { get; set; }
-    public string Speaking { get; set;}
-    public string Writing { get; set; }
-    public string Comprehension { get; set;}
-}
 
 public class CurriculumVitae
 {
