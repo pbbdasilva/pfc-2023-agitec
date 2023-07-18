@@ -8,10 +8,10 @@ public class CVParser
 {
     private string ERROR_MESSAGE = "<ERRO>";
     private XmlSerializer _serializer = new(typeof(CurriculumVitaeDTO));
+    private int MAX_NUMBER_OF_DAYS_WITHOUT_UPDATE = 90;
 
-    public XmlDocument LoadXmlEncoded(string fileName)
+    public XmlDocument LoadXmlEncoded(string path)
     {
-        string path = fileName;
         Encoding encoding = Encoding.GetEncoding("ISO-8859-1");
         using XmlReader reader = XmlReader.Create(new StreamReader(path, encoding));
         XmlDocument xml = new XmlDocument();
@@ -19,8 +19,14 @@ public class CVParser
         return xml;
     }
     
-    public CurriculumVitae ParseFromFileName(string filename) {
-        var xml = LoadXmlEncoded(filename);
+    public CurriculumVitae ParseFromFileName(string filename)
+    {
+        var path = Environment.GetEnvironmentVariable("CVPath") + filename;
+        var lastWriteTime = File.GetLastWriteTime(path);
+        if (DateTime.Now.Subtract(lastWriteTime).TotalDays > MAX_NUMBER_OF_DAYS_WITHOUT_UPDATE)
+            return new CurriculumVitae();
+        
+        var xml = LoadXmlEncoded(path);
         var xmlContent = xml.OuterXml;
         if (xmlContent.Contains(ERROR_MESSAGE))
             return new CurriculumVitae();
