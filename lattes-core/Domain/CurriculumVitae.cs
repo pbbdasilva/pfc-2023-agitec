@@ -14,13 +14,13 @@ public class CurriculumVitae
 		Author = cv.DADOSGERAIS.NOMECOMPLETO;
 		Summary = cv.DADOSGERAIS.RESUMOCV.TEXTORESUMOCVRH;
 		Id = cv.NUMEROIDENTIFICADOR;
-		// Idioms = cv.DADOSGERAIS.IDIOMAS.Select(idiom => new Idiom {
-		// 	Name = idiom.,
-		// 	Reading = idiom.LEITURA,
-		// 	Speaking = idiom.FALA,
-		// 	Writing = idiom.ESCRITA,
-		// 	Comprehension = idiom.COMPREENSAO
-		// }).ToList();
+		Idioms = cv.DADOSGERAIS.IDIOMAS.Select(idiom => new Idiom {
+			Name = idiom.DESCRICAODOIDIOMA,
+			Reading = idiom.PROFICIENCIADELEITURA.ToString(),
+			Speaking = idiom.PROFICIENCIADEFALA.ToString(),
+			Writing = idiom.PROFICIENCIADEESCRITA.ToString(),
+			Comprehension = idiom.PROFICIENCIADECOMPREENSAO.ToString()
+		}).ToList();
 		// ActingAreas = cv.ATUACOESPROFISSIONAIS.Select(area => area.ATUACAOPROFISSIONAL).ToList();
 		// AdditionalInfoList = cv.DADOSCOMPLEMENTARES.Select(info => info.DADOSCOMPLEMENTARES).ToList();
 	}
