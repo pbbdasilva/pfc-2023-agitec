@@ -5,6 +5,18 @@ namespace lattes_core.Domain;
 
 public class CurriculumVitae
 {
+	public string? Author { get; set; }
+	public string? Id { get; set; }
+	public string? Summary { get; set; }
+	public List<Idiom>? Idioms {  get; set; }
+	public List<string>? ActingAreas { get; set; }
+	public List<string>? AdditionalInfoList { get; set; }
+	
+	public static string GenerateFileName(string id)
+	{
+		return $"cv_{id}.xml";
+	}
+	
 	public CurriculumVitae(){}
 	public CurriculumVitae(CurriculumVitaeDTO? cv)
 	{
@@ -24,18 +36,6 @@ public class CurriculumVitae
 		// ActingAreas = cv.ATUACOESPROFISSIONAIS.Select(area => area.ATUACAOPROFISSIONAL).ToList();
 		// AdditionalInfoList = cv.DADOSCOMPLEMENTARES.Select(info => info.DADOSCOMPLEMENTARES).ToList();
 	}
-
-	public string? Author { get; set; }
-    public string? Id { get; set; }
-    public string? Summary { get; set; }
-    public List<Idiom>? Idioms {  get; set; }
-    public List<string>? ActingAreas { get; set; }
-    public List<string>? AdditionalInfoList { get; set; }
-
-    public static string GenerateFileName(string id)
-    {
-	    return $"cv_{id}.xml";
-    }
 }
 
 /*
