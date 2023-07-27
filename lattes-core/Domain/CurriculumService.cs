@@ -21,7 +21,8 @@ public class CurriculumService
     {
         if (!TryGetLocalCopyCurriculum(id, out var curriculum))
         {
-            var response = _decoder.DecodeResponse(await _lattesClient.getCurriculoCompactadoAsync(id), id);
+            var compressedCurriculum = await _lattesClient.getCurriculoCompactadoAsync(id);
+            var response = _decoder.DecodeResponse(compressedCurriculum, id);
             if (response == DecoderStatus.NotFound)
                 return null;
             curriculum = _parser.ParseFromFileName(CurriculumVitae.GenerateFileName(id));
