@@ -5,15 +5,15 @@ namespace lattes_core.Domain;
 
 public class CurriculumVitae
 {
-	public string? Author { get; set; }
-	public string? Id { get; set; }
-	public string? Summary { get; set; }
-	public List<Idiom>? Idioms {  get; set; }
-	public Undergrad Undergrad { get; set; }
+	public string? Author { get; }
+	public string? Id { get; }
+	public string? Summary { get; }
+	public List<Idiom>? Idioms {  get; }
+	public List<Undergrad> UndergradList { get; }
 	
-	public PosGrad PosGrad { get; set; }
-	public Masters Masters { get; set; }
-	public Doctorate Doctorate { get; set; }
+	public PosGrad PosGrad { get; }
+	public Masters Masters { get; }
+	public Doctorate Doctorate { get; }
 
 	public static string GenerateFileName(string id)
 	{
@@ -40,17 +40,21 @@ public class CurriculumVitae
 			Comprehension = idiom.PROFICIENCIADECOMPREENSAO.ToString()
 		}).ToList();
 
-		
+		UndergradList = new List<Undergrad>();
 		if (cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO.GRADUACAO is not null)
-			Undergrad = new Undergrad
-			{
-				Institution = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
-					.GRADUACAO[0].NOMEINSTITUICAO,
-				Course = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
-					.GRADUACAO[0].NOMECURSO,
-				ThesisTitle = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
-					.GRADUACAO[0].TITULODOTRABALHODECONCLUSAODECURSO,
-			};
+		{
+			var len = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO.GRADUACAO.Length;
+			for (int idx = 0; idx < len; idx++)
+				UndergradList.Add(new Undergrad
+				{
+					Institution = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
+						.GRADUACAO[idx].NOMEINSTITUICAO,
+					Course = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
+						.GRADUACAO[idx].NOMECURSO,
+					ThesisTitle = cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO
+						.GRADUACAO[idx].TITULODOTRABALHODECONCLUSAODECURSO,
+				});
+		}
 
 		if (cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO.APERFEICOAMENTO is not null)
 			PosGrad = new PosGrad
