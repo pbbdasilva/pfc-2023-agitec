@@ -97,6 +97,10 @@ public class Masters : Education
 	}
 }
 
+public class PosGrad : Education
+{
+}
+
 public class Undergrad : Education
 {
 }
