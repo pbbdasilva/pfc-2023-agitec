@@ -20,8 +20,7 @@ public class CVRepository : ICVRepository
     public void Save(CurriculumVitae cv)
     {
         var collection = _mongoConnector.GetCollection<CurriculumVitae>("lattes", "resumes");
-        var query = Builders<CurriculumVitae>.Filter.Eq(x => x.Id, cv.Id);
-        var update = Builders<CurriculumVitae>.Update.Set(x => x, cv);
-        collection.UpdateOne(query, update, new UpdateOptions{ IsUpsert = true });
+        var query = Builders<CurriculumVitae>.Filter.Eq("_id", cv.Id);
+        collection.ReplaceOne(query, cv, new ReplaceOptions { IsUpsert = true });
     }
 }

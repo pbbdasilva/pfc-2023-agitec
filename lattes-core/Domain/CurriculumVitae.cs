@@ -1,18 +1,26 @@
 using lattes_core.DTO;
+using MongoDB.Bson.Serialization.Attributes;
 using CurriculumVitaeDTO = lattes_core.DTO.CURRICULOVITAE;
 
 namespace lattes_core.Domain;
 
 public class CurriculumVitae
 {
+	[BsonElement("author")]
 	public string? Author { get; }
+	[BsonElement("_id")]
 	public string? Id { get; }
+	[BsonElement("summary")]
 	public string? Summary { get; }
+	[BsonElement("idioms")]
 	public List<Idiom>? Idioms {  get; }
+	[BsonElement("undergrad")]
 	public List<Undergrad> UndergradList { get; }
-	
+	[BsonElement("posgrad")]
 	public PosGrad PosGrad { get; }
+	[BsonElement("masters")]
 	public Masters Masters { get; }
+	[BsonElement("doctorate")]
 	public Doctorate Doctorate { get; }
 
 	public static string GenerateFileName(string id)
