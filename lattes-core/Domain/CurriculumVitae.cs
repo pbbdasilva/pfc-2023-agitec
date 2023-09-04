@@ -22,7 +22,12 @@ public class CurriculumVitae
 	public Masters Masters { get; }
 	[BsonElement("doctorate")]
 	public Doctorate Doctorate { get; }
+	[BsonElement("workexp")]
+	public List<WorkExperience> WorkExperiences { get; }
 
+	[BsonElement("areas")] 
+	public List<ActingAreas> AreasList;
+	
 	public static string GenerateFileName(string id)
 	{
 		return $"cv_{id}.xml";
@@ -97,5 +102,32 @@ public class CurriculumVitae
 				Areas = Doctorate.ParseKnowledgeAreas(cv),
 				Keywords = Doctorate.ParseKeywords(cv)
 			};
+
+		if (cv.DADOSGERAIS.ATUACOESPROFISSIONAIS is not null)
+		{
+			WorkExperiences = new List<WorkExperience>();
+			var len = cv.DADOSGERAIS.ATUACOESPROFISSIONAIS.Length;
+			for (int i = 0; i < len; i++)
+			{
+				WorkExperiences.Add(new WorkExperience
+				{
+					Institution = cv.DADOSGERAIS.ATUACOESPROFISSIONAIS[i].NOMEINSTITUICAO
+				});
+			}
+		}
+
+
+		if (cv.DADOSGERAIS.AREASDEATUACAO is not null)
+		{
+			AreasList = new List<ActingAreas>();
+			for (int i = 0; i < cv.DADOSGERAIS.AREASDEATUACAO.Length; i++)
+			{
+				AreasList.Add(new ActingAreas
+				{
+					KnowledgeArea = cv.DADOSGERAIS.AREASDEATUACAO[i].NOMEDAAREADOCONHECIMENTO,
+					Specialty = cv.DADOSGERAIS.AREASDEATUACAO[i].NOMEDAESPECIALIDADE,
+				});
+			}
+		}	
 	}
 }
