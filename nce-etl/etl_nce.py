@@ -72,21 +72,20 @@ def save_nce_mongodb():
 
     username = json.load(open('credentials.json'))['username']
     password = json.load(open('credentials.json'))['password']
-    print(username
-          )
-    # URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
-    # '''
+    
+    URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
+    '''
 
-    # client = MongoClient(URI,server_api = ServerApi('1'))
+    client = MongoClient(URI,server_api = ServerApi('1'))
 
-    # mydb = client["lattes"]
-    # mycol = mydb["nce"]
+    mydb = client["lattes"]
+    mycol = mydb["nce"]
 
-    # nce = get_nce_json()
+    nce = get_nce_json()
 
-    # mycol.insert_many(nce)
+    mycol.insert_many(nce)
 
 
 if __name__ == '__main__':
-    #get_nce_json()
+    get_nce_json()
     save_nce_mongodb()
