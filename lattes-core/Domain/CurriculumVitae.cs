@@ -27,7 +27,9 @@ public class CurriculumVitae
 
 	[BsonElement("areas")] 
 	public List<ActingAreas> AreasList;
-	
+
+	[BsonElement("articles")] 
+	public List<string> Articles;
 	public static string GenerateFileName(string id)
 	{
 		return $"cv_{id}.xml";
@@ -45,13 +47,14 @@ public class CurriculumVitae
 			Summary = cv.DADOSGERAIS.RESUMOCV.TEXTORESUMOCVRH;
 		
 		Id = cv.NUMEROIDENTIFICADOR;
-		Idioms = cv.DADOSGERAIS.IDIOMAS.Select(idiom => new Idiom {
-			Name = idiom.DESCRICAODOIDIOMA,
-			Reading = idiom.PROFICIENCIADELEITURA.ToString(),
-			Speaking = idiom.PROFICIENCIADEFALA.ToString(),
-			Writing = idiom.PROFICIENCIADEESCRITA.ToString(),
-			Comprehension = idiom.PROFICIENCIADECOMPREENSAO.ToString()
-		}).ToList();
+		if (cv.DADOSGERAIS.IDIOMAS is not null)
+			Idioms = cv.DADOSGERAIS.IDIOMAS.Select(idiom => new Idiom {
+				Name = idiom.DESCRICAODOIDIOMA,
+				Reading = idiom.PROFICIENCIADELEITURA.ToString(),
+				Speaking = idiom.PROFICIENCIADEFALA.ToString(),
+				Writing = idiom.PROFICIENCIADEESCRITA.ToString(),
+				Comprehension = idiom.PROFICIENCIADECOMPREENSAO.ToString()
+			}).ToList();
 
 		UndergradList = new List<Undergrad>();
 		if (cv.DADOSGERAIS.FORMACAOACADEMICATITULACAO.GRADUACAO is not null)
@@ -128,6 +131,15 @@ public class CurriculumVitae
 					Specialty = cv.DADOSGERAIS.AREASDEATUACAO[i].NOMEDAESPECIALIDADE,
 				});
 			}
-		}	
+		}
+
+		if (cv.PRODUCAOBIBLIOGRAFICA is not null && cv.PRODUCAOBIBLIOGRAFICA.ARTIGOSPUBLICADOS is not null)
+		{
+			Articles = new List<string>();
+			for (int i = 0; i < cv.PRODUCAOBIBLIOGRAFICA.ARTIGOSPUBLICADOS.Length; i++)
+			{
+				Articles.Add(cv.PRODUCAOBIBLIOGRAFICA.ARTIGOSPUBLICADOS[i].DADOSBASICOSDOARTIGO.TITULODOARTIGO);
+			}
+		}
 	}
 }
