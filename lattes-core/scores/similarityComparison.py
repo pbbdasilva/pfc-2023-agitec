@@ -1,6 +1,5 @@
 import spacy
 from nltk.corpus import stopwords
-import sys
 import bisect
 #nlp_en = spacy.load('en_core_web_lg')
 nlp_pt = spacy.load('pt_core_news_lg') 
