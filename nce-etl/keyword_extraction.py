@@ -141,9 +141,7 @@ def main(text = None):
         text = '''
         Implementação de hardware e algoritmos para utilização otimizada do espectro em redes de rádios definidos por software com aplicação no RDS Defesa Portátil e Manpack.
         '''
-
-        text = '''Estudo de modelos de multicritérios para gestão de aquisições e estoques de equipamentos e suprimentos de equipamentos de Sistemas de Guerra Eletrônica, em especial, postos táticos de Medidas de Apoio à Guerra Eletrônica (MAGE) e 
-        Medidas de Ataque Eletrônico (MAE), visando otimizar os processos gerenciais de decisão'''
+        #texto exemplo
     
     tr4w = TextRank4Keyword()
     tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN','ADJ'], window_size=3, lower=False)
