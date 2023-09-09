@@ -3,11 +3,12 @@ import camelot
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
+import sys
 
 
-def get_nce_json(pdf = './desenvolvimento/sepbe51-21_port_113-dct.pdf'):
+def get_nce_json(pdf_path):
 
-    tables = camelot.read_pdf(pdf, pages='all')
+    tables = camelot.read_pdf(pdf_path, pages='all')
 
     # o título está na linha 0
     # os nomes das colunas estão na linha 1
@@ -87,5 +88,9 @@ def save_nce_mongodb():
 
 
 if __name__ == '__main__':
-    get_nce_json()
+    if len(sys.argv)>1:
+        pdf_path = sys.argv[1]
+    else:
+        pdf_path = 'sepbe51-21_port_113-dct.pdf'
+    get_nce_json(pdf_path)
     save_nce_mongodb()
