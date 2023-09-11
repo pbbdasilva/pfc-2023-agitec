@@ -91,6 +91,7 @@ class TextRank4Keyword():
             print(key + ' - ' + str(value))
             if i > number:
                 break
+        return node_weight
         
         
     def analyze(self, text, 
@@ -145,7 +146,8 @@ def main(text = None):
     
     tr4w = TextRank4Keyword()
     tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN','ADJ'], window_size=3, lower=False)
-    tr4w.get_keywords(10)
+    keywords = tr4w.get_keywords(10)
+    print(keywords)
 
 if __name__ == '__main__':
     if len(sys.argv)>1:
