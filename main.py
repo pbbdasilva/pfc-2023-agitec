@@ -37,7 +37,7 @@ def get_score_geral(nce: json, candidato:pd.Series) -> float:
     
 
 def get_score_similaridade_textual(nce: json, candidato:pd.Series) -> float:
-    pass
+    return 0
 
 def get_score_candidato(nce: json) -> pd.DataFrame:
     pass
