@@ -31,14 +31,14 @@ class HighLevelEducation(Education):
     def __str__(self):
         return self.course + " " + self.thesisTitle + " " + self.areas + " " + self.keywords
 
-class Masters(Education):
+class Masters(HighLevelEducation):
     def __init__(self, master: dict):
         super.__init__(master)
 
     def __str__(self):
         return super.__str__()
     
-class Doctorate(Education):
+class Doctorate(HighLevelEducation):
     def __init__(self, master: dict):
         super.__init__(master)
 
