@@ -10,20 +10,14 @@ from nce_etl import nce_utils as nu, keyword_extraction
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
+username = json.load(open('credentials.json'))['username']
+password = json.load(open('credentials.json'))['password']
 
-def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> list:
-    # nce['patente'] = asdasd
-    targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
-    filtered = [all_candidates[
-            (~all_candidates['ORG_LOTACAO'].isin(targetRanks)) &
-            (all_candidates['DESCRICAO_CARGO'] == targetRank)]['NOME'] 
-                 for targetRank in targetRanks]
-    names = filtered['NOME'].values.tolist()
-    # ids = webscraper.getNameIdsDict(names)
-    # for id in ids['id']:
-    #   download(id)
-    #   upToMongo(id)
-    return collection.find(  {"author" : { "$in": names} })
+URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
+'''
+client = MongoClient(URI,server_api = ServerApi('1'))
+database = client["lattes"]
+resumes = database["resumes"]
 
 def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> pd.DataFrame:
     pass
