@@ -10,7 +10,7 @@ class IComparator(ABC):
     def compareTextWithKeywords(self, sentences: list[str], keywords: list[str]) -> list[float]:
         pass
 
-class TopMatchsComparator(IComparator):
+class BestMatchsComparator(IComparator):
     def __init__(self, maxBestMatches: int = 10, keyOrderImportance: float = 0.2, prominentPower: float = 2,
                   debug: bool = False):
         self.maxBestMatches = maxBestMatches
@@ -18,7 +18,7 @@ class TopMatchsComparator(IComparator):
         self.prominentPower = prominentPower
         self.debug = debug
         
-    def extractBest(self, tokens, keyTokens, numberOfBests):
+    def extractBest(self, tokens, keyTokens):
         """
         Parameters:
         - tokens: A list of spaCy tokens representing the words in a sentence.
@@ -35,7 +35,7 @@ class TopMatchsComparator(IComparator):
                 bisect.insort(bestTokens, {"key": token.similarity(keyToken)*pow((len(keyTokens) - idx)/len(keyTokens), self.keyOrderImportance),
                                         "word": token.text, "nceKeyWord": keyToken},
                                         key = lambda x: -x["key"])
-                if(len(bestTokens) > numberOfBests):
+                if(len(bestTokens) > self.maxBestMatches):
                     del bestTokens[-1]
         return bestTokens
 
