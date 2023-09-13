@@ -147,10 +147,13 @@ def main(text = None):
     tr4w = TextRank4Keyword()
     tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN','ADJ'], window_size=3, lower=False)
     keywords = tr4w.get_keywords(10)
-    print(keywords)
+    # print(keywords)
+    return
 
 if __name__ == '__main__':
     if len(sys.argv)>1:
-        main(sys.argv[1])
+        #main(sys.argv[1])
+        print(main(sys.argv[1]))
     else:
-        main()
+        #main()
+        print(main())
