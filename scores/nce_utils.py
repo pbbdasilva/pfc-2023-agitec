@@ -36,7 +36,8 @@ def translate_posto_nce_to_portal_da_transparencia(postos: list) -> list:
     postos_translated = []
     for posto in postos:
         if posto == 'Ten':
-            postos_translated.append('Tenente')
+            postos_translated.append('Primeiro-Tenente')
+            postos_translated.append('Segundo-Tenente')
         if posto == 'Cap':
             postos_translated.append('Capitão')
         elif posto == 'Maj':
