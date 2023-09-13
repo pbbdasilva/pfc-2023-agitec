@@ -74,7 +74,7 @@ def save_nce_mongodb(nce):
     username = json.load(open('credentials.json'))['username']
     password = json.load(open('credentials.json'))['password']
     
-    URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
+    URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true
     '''
 
     client = MongoClient(URI,server_api = ServerApi('1'))
@@ -82,13 +82,14 @@ def save_nce_mongodb(nce):
     mydb = client["lattes"]
     mycol = mydb["nce"]
 
+    mycol.drop()
+    
     mycol.insert_many(nce)
-
 
 if __name__ == '__main__':
     if len(sys.argv)>1:
         pdf_path = sys.argv[1]
     else:
         pdf_path = 'sepbe51-21_port_113-dct.pdf'
-    get_nce_json(pdf_path)
-    save_nce_mongodb()
+    nce = get_nce_json(pdf_path)
+    save_nce_mongodb(nce)
