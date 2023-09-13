@@ -36,7 +36,14 @@ def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
     
 
 
-def get_score_similaridade_textual(nce: json, candidato:pd.Series) -> float:
+def get_score_similaridade_textual(nce: json, candidate: dict) -> float:
+    cv = candidate.to_dict()
+    ts.get_articles_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    ts.get_undergrad_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    ts.get_areasList_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    ts.get_doctorate_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    ts.get_posgrad_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    ts.get_masters_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
     return 0
 
 def get_score_candidato(nce: json) -> pd.DataFrame:
