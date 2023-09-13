@@ -148,7 +148,7 @@ def main(text = None):
     tr4w.analyze(text, candidate_pos = ['NOUN', 'PROPN','ADJ'], window_size=3, lower=False)
     keywords = tr4w.get_keywords(10)
     # print(keywords)
-    return
+    return keywords
 
 if __name__ == '__main__':
     if len(sys.argv)>1:

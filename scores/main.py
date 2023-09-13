@@ -4,9 +4,10 @@
 import pandas as pd
 import string
 import json
-from scores import general_scores
-from scores import text_similarity_scores as ts
-from nce_etl import nce_utils as nu, keyword_extraction
+import general_scores
+import nce_utils as nu
+import keyword_extraction
+import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -19,10 +20,7 @@ client = MongoClient(URI,server_api = ServerApi('1'))
 database = client["lattes"]
 resumes = database["resumes"]
 
-def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> pd.DataFrame:
-    pass
-
-def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
+def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
     targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
     filtered = all_candidates[
             (all_candidates['ORG_LOTACAO'] == 'Comando do Exército') &
@@ -30,8 +28,6 @@ def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
     names = filtered.values.tolist()
     names = [name.title() for name in names]
     return list(resumes.find({"author" : { "$in": names} }))
-    
-
 
 def average(lst):
     return sum(lst) / len(lst)
@@ -56,7 +52,7 @@ def get_score_candidato(nce: json) -> pd.DataFrame:
 
 def main(cod_NCE: string) -> pd.DataFrame:
     nce = nu.get_NCE(cod_NCE)
-    candidatos = get_universo_candidatos(nce)
+    candidatos = get_candidates_universe(nce)
     candidatos['score_geral'] = candidatos.apply(lambda x: general_scores.get_score_geral(x), axis=1)
-    candidatos['score_similaridade_textual'] = candidatos.apply(lambda x: get_score_similaridade_textual(nce, x), axis=1)
+    candidatos['score_similaridade_textual'] = candidatos.apply(lambda x: get_score_textual_similarity(nce, x), axis=1)
     candidatos['score_candidato'] = candidatos['score_geral'] + candidatos['score_similaridade_textual']
