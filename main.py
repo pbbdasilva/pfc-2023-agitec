@@ -5,7 +5,8 @@ import pandas as pd
 import string
 import json
 from scores import general_scores
-from nce_etl import nce_utils
+from scores import text_similarity_scores as ts
+from nce_etl import nce_utils as nu
 
 
 def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> list:
@@ -36,21 +37,25 @@ def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
     
 
 
-def get_score_similaridade_textual(nce: json, candidate: dict) -> float:
-    cv = candidate.to_dict()
-    ts.get_articles_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    ts.get_undergrad_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    ts.get_areasList_similarities(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    ts.get_doctorate_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    ts.get_posgrad_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    ts.get_masters_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    return 0
+def get_score_similaridade_textual(nce: json, candidate: dict, weights: dict) -> float:
+    score = 0
+    keyWords = nce_utils.getKeyWords(nce)
+    score += float(weights['doctorate']) * ts.get_doctorate_similarity(candidate, keyWords)
+    return score
+
+    # ts.get_articles_similarities(candidate, keyWords)
+    # ts.get_undergrad_similarities(candidate, keyWords)
+    # ts.get_areasList_similarities(candidate, keyWords)
+    # ts.get_doctorate_similarity(candidate, keyWords)
+    # ts.get_posgrad_similarity(candidate, keyWords)
+    # ts.get_masters_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
+    # return 0
 
 def get_score_candidato(nce: json) -> pd.DataFrame:
     pass
 
 def main(cod_NCE: string) -> pd.DataFrame:
-    nce = nce_utils.get_NCE(cod_NCE)
+    nce = nu.get_NCE(cod_NCE)
     candidatos = get_universo_candidatos(nce)
     candidatos['score_geral'] = candidatos.apply(lambda x: general_scores.get_score_geral(x), axis=1)
     candidatos['score_similaridade_textual'] = candidatos.apply(lambda x: get_score_similaridade_textual(nce, x), axis=1)
