@@ -4,8 +4,8 @@
 import pandas as pd
 import string
 import json
-from scores import general_scores
-from nce_etl import nce_utils
+import general_scores
+import nce_utils
 
 
 
