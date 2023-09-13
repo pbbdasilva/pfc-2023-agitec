@@ -1,4 +1,4 @@
-from . import similarityComparison
+import similarityComparison
 
 class Education:
     def __init__(self, educ: dict):
