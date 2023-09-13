@@ -6,7 +6,9 @@ import string
 import json
 from scores import general_scores
 from scores import text_similarity_scores as ts
-from nce_etl import nce_utils as nu
+from nce_etl import nce_utils as nu, keyword_extraction
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 
 def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> list:
