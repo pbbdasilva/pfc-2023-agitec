@@ -73,8 +73,9 @@ class TopMatchsComparator(IComparator):
             filteredWords = [word for word in words if word not in stopwords.words('portuguese')]
             filteredWords = [str(word) + " " for word in filteredWords]
             tokens = nlp_pt("".join([str(word) for word in filteredWords]))
-            top = self.extractBest(tokens, keyTokens, self.maxBestMatches, self.keyOrderImportance)
-            results.append(self.evaluateScores(top, self.prominentPower))
+            top = self.extractBest(tokens, keyTokens)
+            results.append(self.evaluateScores(top))
+        results = results if results else [0]
         return results
 
     def compareTextWithKeywords(self, sentences: list[str], keywords: list[str]) -> list[float]:
