@@ -68,7 +68,7 @@ def get_nce_json(pdf_path):
     data = total_df_jobs.to_dict(orient='records')
     return data
 
-def save_nce_mongodb():
+def save_nce_mongodb(nce):
     
 
     username = json.load(open('credentials.json'))['username']
@@ -81,8 +81,6 @@ def save_nce_mongodb():
 
     mydb = client["lattes"]
     mycol = mydb["nce"]
-
-    nce = get_nce_json()
 
     mycol.insert_many(nce)
 
