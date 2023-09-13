@@ -11,8 +11,8 @@ import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-username = json.load(open('credentials.json'))['username']
-password = json.load(open('credentials.json'))['password']
+username = json.load(open('scores/credentials.json'))['username']
+password = json.load(open('scores/credentials.json'))['password']
 
 URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
 '''
