@@ -51,14 +51,6 @@ def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = Non
     score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
     return score
 
-    # ts.get_articles_similarities(candidate, keyWords)
-    # ts.get_undergrad_similarities(candidate, keyWords)
-    # ts.get_areasList_similarities(candidate, keyWords)
-    # ts.get_doctorate_similarity(candidate, keyWords)
-    # ts.get_posgrad_similarity(candidate, keyWords)
-    # ts.get_masters_similarity(candidate, ["Computação", "Segurança", "Leis", "Legislação", "Redigir"])
-    # return 0
-
 def get_score_candidato(nce: json) -> pd.DataFrame:
     pass
 
