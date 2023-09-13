@@ -1,0 +1,7 @@
+pandas==1.5.3
+spacy
+ghostscript
+opencv-python
+camelot-py
+pymongo
+
