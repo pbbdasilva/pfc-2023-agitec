@@ -29,7 +29,7 @@ def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
             (all_candidates['DESCRICAO_CARGO'].isin(targetRanks))]['NOME'] 
     names = filtered.values.tolist()
     names = [name.title() for name in names]
-    return list(collection.find({"author" : { "$in": names} }))
+    return list(resumes.find({"author" : { "$in": names} }))
     
 
 
