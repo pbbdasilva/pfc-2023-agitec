@@ -11,8 +11,8 @@ import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-username = json.load(open('credentials.json'))['username']
-password = json.load(open('credentials.json'))['password']
+username = json.load(open('scores/credentials.json'))['username']
+password = json.load(open('scores/credentials.json'))['password']
 
 URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
 '''
@@ -22,12 +22,21 @@ resumes = database["resumes"]
 
 def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
     targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
+    requirement = nu.get_requisito_academico_nce(nce)
     filtered = all_candidates[
             (all_candidates['ORG_LOTACAO'] == 'Comando do Exército') &
             (all_candidates['DESCRICAO_CARGO'].isin(targetRanks))]['NOME'] 
     names = filtered.values.tolist()
     names = [name.title() for name in names]
-    return list(resumes.find({"author" : { "$in": names} }))
+    match requirement:
+        case 'Bacharelado':
+            conditions = [{"author" : { "$in": names} }, {'undergrad': {'$ne': None} }]
+        case 'Mestrado':
+            conditions = [{"author" : { "$in": names} }, {'masters': {'$ne': None} }]
+        case _:
+            conditions = [{"author" : { "$in": names} }]
+    return list(resumes.find({"$and": conditions}))
+    
 
 def average(lst):
     return sum(lst) / len(lst)
