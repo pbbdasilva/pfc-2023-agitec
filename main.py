@@ -33,10 +33,22 @@ def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
     
 
 
-def get_score_similaridade_textual(nce: json, candidate: dict, weights: dict) -> float:
+def average(lst):
+    return sum(lst) / len(lst)
+
+def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = None) -> float:
+    if weights == None:
+        weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
     score = 0
-    keyWords = nce_utils.getKeyWords(nce)
-    score += float(weights['doctorate']) * ts.get_doctorate_similarity(candidate, keyWords)
+    keyWords = keyword_extraction.main(nce['Conhecimento Específico'] if nce['Conhecimento Específico'] != '' 
+                                       else nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
+    score += float(weights['Doutorado']) * ts.get_doctorate_similarity(candidate, keyWords)
+    score += float(weights['Mestrado']) * ts.get_masters_similarity(candidate, keyWords)
+    score += float(weights['Aperfeiçoamento']) * ts.get_posgrad_similarity(candidate, keyWords)
+
+    score += float(weights['Artigos']) * max(ts.get_articles_similarities(candidate, keyWords))
+    score += float(weights['Graduação']) * max(ts.get_undergrad_similarities(candidate, keyWords))
+    score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
     return score
 
     # ts.get_articles_similarities(candidate, keyWords)
