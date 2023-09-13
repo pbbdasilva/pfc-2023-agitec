@@ -32,33 +32,35 @@ class Doctorate(HighLevelEducation):
     def __str__(self):
         return super().__str__()
 
+comparator = similarityComparison.BestMatchsComparator()
+
 def get_summary_similarity(cv: dict, keywords: list) -> float:
-    try: return similarityComparison.compare([cv['summary']], keywords)[0]
+    try: return comparator.compareTextWithKeywords([cv['summary']], keywords)[0]
     except TypeError: return 0
 
 def get_undergrad_similarities(cv: dict, keywords: list) -> list:
-    try: return similarityComparison.compare([str(Education(u)) for u in  cv['undergrad']], keywords)
+    try: return comparator.compareTextWithKeywords([str(Education(u)) for u in  cv['undergrad']], keywords)
     except TypeError: [0]
 
 def get_posgrad_similarity(cv: dict, keywords: list) -> float:
-    try: return similarityComparison.compare([cv['posgrad']['Course'] + " " + cv['posgrad']['ThesisTitle'] ], keywords)[0]
+    try: return comparator.compareTextWithKeywords([cv['posgrad']['Course'] + " " + cv['posgrad']['ThesisTitle'] ], keywords)[0]
     except TypeError: return 0
 
 def get_masters_similarity(cv: dict, keywords: list) -> float:
-    try: return similarityComparison.compare([str(Masters(cv['masters']))], keywords)[0]
+    try: return comparator.compareTextWithKeywords([str(Masters(cv['masters']))], keywords)[0]
     except TypeError: return 0
 
 def get_doctorate_similarity(cv: dict, keywords: list) -> float:
-    try: return similarityComparison.compare([str(Doctorate(cv['doctorate']))], keywords)[0]
+    try: return comparator.compareTextWithKeywords([str(Doctorate(cv['doctorate']))], keywords)[0]
     except: return 0
 
 # def get_workexp_similarities(cv: dict, keywords: list) -> list: 
-#     return similarityComparison.compare([str(WorkExp(workexpDict)) for workexpDict in  cv['workexp']], keywords)
+#     return comparator.compareTextWithKeywords([str(WorkExp(workexpDict)) for workexpDict in  cv['workexp']], keywords)
 
 def get_areasList_similarities(cv: dict, keywords: list) -> list: 
-    try: return similarityComparison.compare([areaDict['Specialty'] + " " + areaDict['KnowledgeArea'] for areaDict in  cv['areas']], keywords)
+    try: return comparator.compareTextWithKeywords([areaDict['Specialty'] + " " + areaDict['KnowledgeArea'] for areaDict in  cv['areas']], keywords)
     except: return [0]
 
 def get_articles_similarities(cv: dict, keywords: list) -> list: 
-    try: return similarityComparison.compare([article for article in cv['articles']], keywords)
+    try: return comparator.compareTextWithKeywords([article for article in cv['articles']], keywords)
     except TypeError: return [0]
