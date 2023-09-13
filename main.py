@@ -25,6 +25,14 @@ def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> list:
 def get_universo_candidatos(nce: json, all_candidates: pd.DataFrame) -> pd.DataFrame:
     pass
 
+def get_universe_candidates(nce: json, all_candidates: pd.DataFrame) -> list:
+    targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
+    filtered = all_candidates[
+            (all_candidates['ORG_LOTACAO'] == 'Comando do Exército') &
+            (all_candidates['DESCRICAO_CARGO'].isin(targetRanks))]['NOME'] 
+    names = filtered.values.tolist()
+    names = [name.title() for name in names]
+    return list(collection.find({"author" : { "$in": names} }))
     
 
 
