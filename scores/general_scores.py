@@ -36,7 +36,10 @@ def has_doctorate(cv: dict) -> bool:
 
 def get_articles_scores(cv: dict) -> float:
     #retorna a nota relacionada aos artigos
-    return len(cv['articles'])
+    if cv['articles'] == None:
+        return 0
+    else:
+        return len(cv['articles'])
 
 def get_score_geral(cv: dict) -> float:
     #retorna a nota geral do candidato

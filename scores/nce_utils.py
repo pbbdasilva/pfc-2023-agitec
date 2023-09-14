@@ -1,12 +1,10 @@
 import pandas as pd
 import string
 import json
+import pymongo
 
-def get_NCE(nces: json,cod_NCE: string) -> json:
-    for nce in nces:
-        if nce['Código NCE/2023'] == cod_NCE:
-            return nce
-    return -1
+def get_NCE(nces: pymongo.collection ,cod_NCE: string) -> json:
+    return nces.find({"Código NCE/2023": cod_NCE})[0]
 
 def get_requisito_academico_nce(nce: json) -> string:
     tipo = nce['Código NCE/2023'][2]
@@ -21,12 +19,10 @@ def get_requisito_academico_nce(nce: json) -> string:
     
 def get_requisito_posto_nce(nce: json) -> string:
     
-    postos  = nce['Posto'].str.split('/')
+    postos  = [posto.lstrip() for posto in nce['Posto'].split('/')]
     
-    for posto in postos:
-        if posto == 'Cap (Aperf)': #por algum motivo capitão aparece dessa maneira na nce
-            posto = 'Cap'
-
+    postos = ['Cap' if posto == 'Cap (Aperf)' else posto for posto in postos]
+    
     return postos
 
 def translate_posto_nce_to_portal_da_transparencia(postos: list) -> list:
