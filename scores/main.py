@@ -11,8 +11,8 @@ import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-username = json.load(open('scores/credentials.json'))['username']
-password = json.load(open('scores/credentials.json'))['password']
+username = json.load(open('credentials.json'))['username']
+password = json.load(open('credentials.json'))['password']
 
 URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
 '''
@@ -21,7 +21,7 @@ database = client["lattes"]
 resumes = database["resumes"]
 nces = database["nce"]
 
-all_candidates = pd.read_csv('./scores/202301_Cadastro.csv', sep=';', engine='python', encoding = 'latin1')
+all_candidates = pd.read_csv('./202301_Cadastro.csv', sep=';', engine='python', encoding = 'latin1')
 
 def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
     targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
@@ -46,7 +46,7 @@ def average(lst):
 
 def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = None) -> float:
     if weights == None:
-        weights = dict(pd.read_excel("scores/defaultWeights.xlsx").to_numpy())
+        weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
     score = 0
     keyWords = keyword_extraction.main(nce['Conhecimento Específico'] if nce['Conhecimento Específico'] != '' 
                                        else nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
