@@ -17,7 +17,7 @@ public class CurriculumService
         _parser = parser;
     }
 
-    public async Task<CurriculumVitae?> ProcessCurriculumByCnpqId(string id)
+    public async Task<CurriculumVitae?> ProcessCurriculumByCnpqId(string id, string rank)
     {
         if (!TryGetLocalCopyCurriculum(id, out var curriculum))
         {
@@ -30,7 +30,8 @@ public class CurriculumService
         
         if (curriculum.Id is null)
             return null;
-        
+
+        curriculum.Rank = rank;
         _repository.Save(curriculum);
         return curriculum;
     }

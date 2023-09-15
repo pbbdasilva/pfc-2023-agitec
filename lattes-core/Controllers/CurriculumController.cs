@@ -13,10 +13,10 @@ public class CurriculumController : Controller
         _service = service;
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> ProcessCurriculumByCnpqId([FromRoute] string id)
+    [HttpGet("{rank}/{id}")]
+    public async Task<IActionResult> ProcessCurriculumByCnpqId([FromRoute] string rank, [FromRoute] string id)
     {
-        var cv = await _service.ProcessCurriculumByCnpqId(id);
+        var cv = await _service.ProcessCurriculumByCnpqId(id, rank);
         if (cv is null)
             return NotFound();
 

@@ -24,6 +24,8 @@ public class CurriculumVitae
 	public Doctorate Doctorate { get; }
 	[BsonElement("workexp")]
 	public List<WorkExperience> WorkExperiences { get; }
+	[BsonElement("rank")]
+	public string Rank { get; set; }
 
 	[BsonElement("areas")] 
 	public List<ActingAreas> AreasList;
