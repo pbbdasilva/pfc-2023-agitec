@@ -21,9 +21,7 @@ database = client["lattes"]
 resumes = database["resumes"]
 nces = database["nce"]
 
-all_candidates = pd.read_csv('./202301_Cadastro.csv', sep=';', engine='python', encoding = 'latin1')
-
-def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
+def get_candidates_universe(nce: json) -> list:
     targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
     requirement = nu.get_requisito_academico_nce(nce)
     match requirement:
@@ -59,8 +57,8 @@ def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = Non
 
 def main(cod_NCE: string) -> pd.DataFrame:
     nce = nu.get_NCE(nces,cod_NCE)
-    candidatos = get_candidates_universe(nce,all_candidates)
-    
+    candidatos = get_candidates_universe(nce)
+
     for candidato in candidatos:
         candidato['score_geral'] = get_score_geral(candidato)
         candidato['score_similaridade_textual'] = get_score_textual_similarity(nce, candidato)
