@@ -19,13 +19,13 @@ public class CurriculumService
 
     public async Task<CurriculumVitae?> ProcessCurriculumByCnpqId(string id, string rank)
     {
-        if (!TryGetLocalCopyCurriculum(id, out var curriculum))
+        if (!TryGetLocalCopyCurriculum(id, rank, out var curriculum))
         {
             var compressedCurriculum = await _lattesClient.getCurriculoCompactadoAsync(id);
-            var response = _decoder.DecodeResponse(compressedCurriculum, id);
+            var response = _decoder.DecodeResponse(compressedCurriculum, id, rank);
             if (response == DecoderStatus.NotFound)
                 return null;
-            curriculum = _parser.ParseFromFileName(CurriculumVitae.GenerateFileName(id));
+            curriculum = _parser.ParseFromFileName(CurriculumVitae.GenerateFileName(id, rank));
         }
         
         if (curriculum.Id is null)
@@ -36,9 +36,9 @@ public class CurriculumService
         return curriculum;
     }
 
-    private bool TryGetLocalCopyCurriculum(string id, out CurriculumVitae curriculum)
+    private bool TryGetLocalCopyCurriculum(string id, string rank, out CurriculumVitae curriculum)
     {
-        curriculum = _parser.ParseFromFileName(CurriculumVitae.GenerateFileName(id));
+        curriculum = _parser.ParseFromFileName(CurriculumVitae.GenerateFileName(id, rank));
         return curriculum.Id is not null;
     }
 }

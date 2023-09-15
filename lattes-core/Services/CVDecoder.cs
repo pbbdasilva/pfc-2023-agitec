@@ -11,11 +11,11 @@ public enum DecoderStatus
 
 public class CVDecoder
 {
-    public DecoderStatus DecodeResponse(byte[] compressedResponse, string id)
+    public DecoderStatus DecodeResponse(byte[] compressedResponse, string id, string rank)
     {
         try
         {
-            var fileName = CurriculumVitae.GenerateFileName(id);
+            var fileName = CurriculumVitae.GenerateFileName(id, rank);
             var zipStream = new ZipInputStream(new MemoryStream(compressedResponse));
             zipStream.GetNextEntry();
             var xml = GetXml(fileName);
