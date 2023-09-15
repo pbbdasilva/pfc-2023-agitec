@@ -26,18 +26,16 @@ all_candidates = pd.read_csv('./202301_Cadastro.csv', sep=';', engine='python', 
 def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
     targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
     requirement = nu.get_requisito_academico_nce(nce)
-    filtered = all_candidates[
-            (all_candidates['ORG_LOTACAO'] == 'Comando do Exército') &
-            (all_candidates['DESCRICAO_CARGO'].isin(targetRanks))]['NOME'] 
-    names = filtered.values.tolist()
-    names = [name.title() for name in names]
     match requirement:
         case 'Bacharelado':
-            conditions = [{"author" : { "$in": names} }, {'undergrad': {'$ne': None} }]
+            conditions = [{'undergrad': {'$ne': None} }]
         case 'Mestrado':
-            conditions = [{"author" : { "$in": names} }, {'masters': {'$ne': None} }]
+            conditions = [{'masters': {'$ne': None} }]
         case _:
-            conditions = [{"author" : { "$in": names} }]
+            conditions = []
+    
+    conditions.append({'rank': {'$in': targetRanks}})
+
     return list(resumes.find({"$and": conditions}))
     
 
@@ -67,7 +65,12 @@ def main(cod_NCE: string) -> pd.DataFrame:
         candidato['score_geral'] = get_score_geral(candidato)
         candidato['score_similaridade_textual'] = get_score_textual_similarity(nce, candidato)
         candidato['score_candidato'] = candidato['score_geral'] + candidato['score_similaridade_textual']
-    return candidatos
+    
+    candidatos = pd.DataFrame(candidatos)
+
+    candidatos = candidatos.sort_values(by=['score_candidato'], ascending=False)
+    
+    return candidatos.loc[:,['author','score_geral', 'score_similaridade_textual', 'score_candidato']]
 
 #exemplo de chamada
 candidatos = main('13D2023')
