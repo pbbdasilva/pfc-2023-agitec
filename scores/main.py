@@ -10,6 +10,7 @@ import keyword_extraction
 import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import sys
 
 username = json.load(open('credentials.json'))['username']
 password = json.load(open('credentials.json'))['password']
@@ -53,7 +54,7 @@ def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = Non
     score += float(weights['Artigos']) * max(ts.get_articles_similarities(candidate, keyWords))
     score += float(weights['Graduação']) * max(ts.get_undergrad_similarities(candidate, keyWords))
     score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
-    return score
+    return 5*score
 
 def main(cod_NCE: string) -> pd.DataFrame:
     nce = nu.get_NCE(nces,cod_NCE)
@@ -70,6 +71,11 @@ def main(cod_NCE: string) -> pd.DataFrame:
     
     return candidatos.loc[:,['author','score_geral', 'score_similaridade_textual', 'score_candidato']]
 
-#exemplo de chamada
-candidatos = main('13D2023')
-print(candidatos)
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        cod_NCE = sys.argv[1]
+    else:
+        cod_NCE = '13D2023'
+    candidatos = main(cod_NCE)
+    print(candidatos)
+    
