@@ -2,7 +2,6 @@ import pandas as pd
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
-import sys
 
 DB_NAME = "lattes"
 COLLECTION_NAME = "positions"
@@ -61,11 +60,7 @@ def save_position(positions):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        pdf_path = sys.argv[1]
-    else:
-        pdf_path = 'sepbe51-21_port_113-dct.pdf'
     nces = pd.read_csv('nces.csv')
-    positions = [p.to_dict() for p in nces.apply(nce_to_position, axis=1).tolist()]
+    positions = [p.to_dict() for p in nces.loc[nces['Código NCE/2023'].notnull()].apply(nce_to_position, axis=1).tolist()]
     print(positions)
 #    save_position(positions)
