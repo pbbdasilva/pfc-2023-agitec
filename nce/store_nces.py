@@ -14,7 +14,6 @@ class Position:
         self.academic_requirement = academic_requirement
         self.rank = rank
 
-    @property
     def to_dict(self):
         return {
             "id": self.id,
