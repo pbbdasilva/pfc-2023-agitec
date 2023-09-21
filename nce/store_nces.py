@@ -57,7 +57,7 @@ def save_position(positions):
     mydb = client[DB_NAME]
     mycol = mydb[COLLECTION_NAME]
     mycol.drop()
-    mycol.insert_many(positions.tolist())
+    mycol.insert_many()
 
 
 if __name__ == '__main__':
@@ -66,5 +66,6 @@ if __name__ == '__main__':
     else:
         pdf_path = 'sepbe51-21_port_113-dct.pdf'
     nces = pd.read_csv('nces.csv')
-    positions = nces.apply(nce_to_position, axis=1)
-    save_position(positions)
+    positions = [p.to_dict() for p in nces.apply(nce_to_position, axis=1).tolist()]
+    print(positions)
+#    save_position(positions)

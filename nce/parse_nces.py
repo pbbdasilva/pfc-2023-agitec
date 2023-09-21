@@ -66,4 +66,4 @@ if __name__ == '__main__':
     else:
         pdf_path = 'sepbe51-21_port_113-dct.pdf'
     nces = parse_nces(pdf_path)
-    nces.to_csv('nces.csv')
+    nces.to_csv('nces.csv', index=False)
