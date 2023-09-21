@@ -26,8 +26,11 @@ class Position:
         }
 
 
-def get_academic_requirement(nce_id: json) -> str:
-    req_type = nce_id['id'][2]
+def get_academic_requirement(nce_id: json) -> str | None:
+    if not nce_id:
+        return None
+
+    req_type = nce_id[2]
     if req_type == 'M':  # denota uma vaga de mestrado
         requirement = 'Bacharelado'
     elif req_type == 'D':  # denota uma vaga de doutorado
@@ -43,7 +46,7 @@ def nce_to_position(nce) -> Position:
         description.append(nce['Conhecimento Específico'])
     if not nce['Aplicação/Período de Aplicação do Conhecimento(PAC)']:
         description.append(nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
-    academic_req = get_academic_requirement(['Código NCE/2023'])
+    academic_req = get_academic_requirement(nce['Código NCE/2023'])
     return Position(nce['Código NCE/2023'], description, academic_req, nce['Posto'])
 
 
@@ -113,7 +116,7 @@ def save_position(positions):
     mydb = client[DB_NAME]
     mycol = mydb[COLLECTION_NAME]
     mycol.drop()
-    mycol.insert_many(positions.to_dict(orient='records'))
+    mycol.insert_many(positions.to_dict())
 
 
 if __name__ == '__main__':
@@ -122,5 +125,5 @@ if __name__ == '__main__':
     else:
         pdf_path = 'sepbe51-21_port_113-dct.pdf'
     nces = get_nce_json(pdf_path)
-    positions = nces.apply(lambda row: nce_to_position(row))
+    positions = nces.apply(nce_to_position, axis=1)
     save_position(positions)
