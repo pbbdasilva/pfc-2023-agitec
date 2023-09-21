@@ -39,9 +39,9 @@ def get_academic_requirement(nce_id: json) -> str | None:
 
 def nce_to_position(nce) -> Position:
     description = []
-    if not nce['Conhecimento Específico']:
+    if nce['Conhecimento Específico']:
         description.append(nce['Conhecimento Específico'])
-    if not nce['Aplicação/Período de Aplicação do Conhecimento(PAC)']:
+    if nce['Aplicação/Período de Aplicação do Conhecimento(PAC)']:
         description.append(nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
     academic_req = get_academic_requirement(nce['Código NCE/2023'])
     return Position(nce['Código NCE/2023'], description, academic_req, nce['Posto'])
