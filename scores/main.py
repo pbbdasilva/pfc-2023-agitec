@@ -45,8 +45,7 @@ def get_score_textual_similarity(position: json, candidate: dict, weights: dict 
     if weights is None:
         weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
     score = 0
-    keyWords = keyword_extraction.main(position['Conhecimento Específico'] if position['Conhecimento Específico'] != ''
-                                       else position['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
+    keyWords = keyword_extraction.main(position['description'])
     score += float(weights['Doutorado']) * ts.get_doctorate_similarity(candidate, keyWords)
     score += float(weights['Mestrado']) * ts.get_masters_similarity(candidate, keyWords)
     score += float(weights['Aperfeiçoamento']) * ts.get_posgrad_similarity(candidate, keyWords)
