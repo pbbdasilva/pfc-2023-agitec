@@ -5,6 +5,7 @@ from enum import Enum
 
 class Nivel(Enum):
     #atributos de cada linguagem
+    NAO_INFORMADO = 0
     POUCO = 1
     RAZOAVELMENTE = 3
     BEM = 5

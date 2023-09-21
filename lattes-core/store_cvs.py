@@ -14,25 +14,30 @@ base_url = "http://localhost:5037/cv/"
 
     will use cvs in current directory
 '''
-def store_cv(cnpq_id):
+def store_cv(arg):
     # print("sending put request for {}".format(cnpq_id))
-    url = base_url + cnpq_id
+    splitted_arg = arg.split("_")
+    if len(splitted_arg) != 2:
+        print("error for file format using {}}".format(arg))
+        return
+    rank = splitted_arg[0]
+    cnpq_id = splitted_arg[1]
+    url = base_url + "{}/{}".format(rank, cnpq_id)
     try:
         r = req.get(url)
     except req.exceptions.ConnectionError as e:
         print("error for {}".format(cnpq_id))
         print(e)
-    
     if r.status_code != 200:
         print("error for {}".format(cnpq_id))
 
 async def main():
     files = os.listdir(os.getcwd())
-    cnpq_ids = [file.replace("cv_", "").replace(".xml", "") for file in files if file.startswith('cv_') and file.endswith('xml')]
+    request_args = [file.replace("cv_", "").replace(".xml", "") for file in files if file.startswith('cv_') and file.endswith('xml')]
 
     loop = asyncio.get_event_loop()
     with ProcessPoolExecutor() as executor:
-        tasks = [loop.run_in_executor(None, store_cv, cv_id) for cv_id in cnpq_ids]
+        tasks = [loop.run_in_executor(None, store_cv, arg) for arg in request_args]
         await asyncio.gather(*tasks)
     
 

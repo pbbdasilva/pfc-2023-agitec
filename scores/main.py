@@ -10,46 +10,43 @@ import keyword_extraction
 import text_similarity_scores as ts
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import argparse
 
 username = json.load(open('credentials.json'))['username']
 password = json.load(open('credentials.json'))['password']
 
-URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority
-'''
-client = MongoClient(URI,server_api = ServerApi('1'))
+URI = f"mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(URI, server_api=ServerApi('1'))
 database = client["lattes"]
 resumes = database["resumes"]
-nces = database["nce"]
+positions = database["positions"]
 
-all_candidates = pd.read_csv('./202301_Cadastro.csv', sep=';', engine='python', encoding = 'latin1')
 
-def get_candidates_universe(nce: json, all_candidates: pd.DataFrame) -> list:
-    targetRanks = nu.translate_posto_nce_to_portal_da_transparencia(nu.get_requisito_posto_nce(nce))
-    requirement = nu.get_requisito_academico_nce(nce)
-    filtered = all_candidates[
-            (all_candidates['ORG_LOTACAO'] == 'Comando do Exército') &
-            (all_candidates['DESCRICAO_CARGO'].isin(targetRanks))]['NOME'] 
-    names = filtered.values.tolist()
-    names = [name.title() for name in names]
+def get_candidates_universe(position: json) -> list:
+    targetRanks = nu.position_rank_to_transparencia(nu.get_requisito_posto_nce(position))
+    requirement = position['rank']
     match requirement:
         case 'Bacharelado':
-            conditions = [{"author" : { "$in": names} }, {'undergrad': {'$ne': None} }]
+            conditions = [{'undergrad': {'$ne': None}}]
         case 'Mestrado':
-            conditions = [{"author" : { "$in": names} }, {'masters': {'$ne': None} }]
+            conditions = [{'masters': {'$ne': None}}]
         case _:
-            conditions = [{"author" : { "$in": names} }]
+            conditions = []
+    conditions.append({'rank': {'$in': targetRanks}})
+
     return list(resumes.find({"$and": conditions}))
-    
+
 
 def average(lst):
     return sum(lst) / len(lst)
 
-def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = None) -> float:
-    if weights == None:
+
+def get_score_textual_similarity(position: json, candidate: dict, weights: dict = None) -> float:
+    if weights is None:
         weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
     score = 0
-    keyWords = keyword_extraction.main(nce['Conhecimento Específico'] if nce['Conhecimento Específico'] != '' 
-                                       else nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
+    keyWords = keyword_extraction.main(position['Conhecimento Específico'] if position['Conhecimento Específico'] != ''
+                                       else position['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
     score += float(weights['Doutorado']) * ts.get_doctorate_similarity(candidate, keyWords)
     score += float(weights['Mestrado']) * ts.get_masters_similarity(candidate, keyWords)
     score += float(weights['Aperfeiçoamento']) * ts.get_posgrad_similarity(candidate, keyWords)
@@ -57,18 +54,29 @@ def get_score_textual_similarity(nce: json, candidate: dict, weights: dict = Non
     score += float(weights['Artigos']) * max(ts.get_articles_similarities(candidate, keyWords))
     score += float(weights['Graduação']) * max(ts.get_undergrad_similarities(candidate, keyWords))
     score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
-    return score
 
-def main(cod_NCE: string) -> pd.DataFrame:
-    nce = nu.get_NCE(nces,cod_NCE)
-    candidatos = get_candidates_universe(nce,all_candidates)
-    
-    for candidato in candidatos:
-        candidato['score_geral'] = get_score_geral(candidato)
-        candidato['score_similaridade_textual'] = get_score_textual_similarity(nce, candidato)
-        candidato['score_candidato'] = candidato['score_geral'] + candidato['score_similaridade_textual']
-    return candidatos
+    return 5 * score
 
-#exemplo de chamada
-candidatos = main('13D2023')
-print(candidatos)
+
+def main(position_id: string) -> pd.DataFrame:
+    position = nu.get_position(positions, position_id)
+    candidates = get_candidates_universe(position)
+
+    for candidate in candidates:
+        candidate['score_geral'] = get_score_geral(candidate)
+        candidate['score_similaridade_textual'] = get_score_textual_similarity(position, candidate)
+        candidate['score_candidato'] = candidate['score_geral'] + candidate['score_similaridade_textual']
+    candidates = pd.DataFrame(candidates).sort_values(by=['score_candidato'], ascending=False)
+
+    return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Rank candidate for given position')
+    parser.add_argument('--id', help='Position id')
+    args = parser.parse_args()
+    position_id = args.id
+    if not position_id:
+        position_id = '13D2023'
+    candidates_ranking = main(position_id)
+    print(candidates_ranking)

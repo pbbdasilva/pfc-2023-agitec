@@ -5,15 +5,54 @@ from pymongo.server_api import ServerApi
 import json
 import sys
 
+DB_NAME = "lattes"
+COLLECTION_NAME = "positions"
+
+
+class Position:
+    def __init__(self, id: str, description: list[str], academic_requirement: str, rank: str):
+        self.id = id
+        self.description = description
+        self.academic_requirement = academic_requirement
+        self.rank = rank
+
+    @property
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "description": self.description,
+            "academic_requirement": self.academic_requirement,
+            "rank": self.rank
+        }
+
+
+def get_academic_requirement(nce_id: json) -> str:
+    req_type = nce_id['id'][2]
+    if req_type == 'M':  # denota uma vaga de mestrado
+        requirement = 'Bacharelado'
+    elif req_type == 'D':  # denota uma vaga de doutorado
+        requirement = 'Mestrado'
+    else:
+        requirement = None
+    return requirement
+
+
+def nce_to_position(nce) -> Position:
+    description = []
+    if not nce['Conhecimento Específico']:
+        description.append(nce['Conhecimento Específico'])
+    if not nce['Aplicação/Período de Aplicação do Conhecimento(PAC)']:
+        description.append(nce['Aplicação/Período de Aplicação do Conhecimento(PAC)'])
+    academic_req = get_academic_requirement(['Código NCE/2023'])
+    return Position(nce['Código NCE/2023'], description, academic_req, nce['Posto'])
+
 
 def get_nce_json(pdf_path):
-
     tables = camelot.read_pdf(pdf_path, pages='all')
 
     # o título está na linha 0
     # os nomes das colunas estão na linha 1
     # os nomes das colunas multilevel estão na linha 2
-
 
     # rename columns and append similar dataframes (after)
     df = tables[1].df
@@ -36,7 +75,6 @@ def get_nce_json(pdf_path):
     # formatando as strings para facilitar tratamento futuro
     df = df.replace('\n',' ', regex=True)
     df = df.replace('  ',' ', regex=True)
-
 
     # eliminando os cabeçalhos (headers) das tabelas
     for i in range(0,len(tables)):
@@ -63,33 +101,26 @@ def get_nce_json(pdf_path):
     total_df_jobs = total_df_jobs.drop(columns=['index'])
     total_df_jobs = total_df_jobs.drop([8,9,10,11], axis=1)
     total_df_jobs.columns = ['Código NCE/2023','OM Solicitante','Posto','Perfil','Conhecimento Específico','Aplicação/Período de Aplicação do Conhecimento(PAC)','Instituição/Local','Programa','Classificação após o curso','Prioridade DCT']
-    #total_df_jobs.to_excel("NCE_all.xlsx") 
 
-    data = total_df_jobs.to_dict(orient='records')
-    return data
+    return total_df_jobs
 
-def save_nce_mongodb(nce):
-    
 
+def save_position(positions):
     username = json.load(open('credentials.json'))['username']
     password = json.load(open('credentials.json'))['password']
-    
-    URI = f'''mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true
-    '''
-
-    client = MongoClient(URI,server_api = ServerApi('1'))
-
-    mydb = client["lattes"]
-    mycol = mydb["nce"]
-
+    URI = f"mongodb+srv://{username}:{password}@lattes-pfc-2023.twn2hk2.mongodb.net/?retryWrites=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    mydb = client[DB_NAME]
+    mycol = mydb[COLLECTION_NAME]
     mycol.drop()
-    
-    mycol.insert_many(nce)
+    mycol.insert_many(positions.to_dict(orient='records'))
+
 
 if __name__ == '__main__':
-    if len(sys.argv)>1:
+    if len(sys.argv) > 1:
         pdf_path = sys.argv[1]
     else:
         pdf_path = 'sepbe51-21_port_113-dct.pdf'
-    nce = get_nce_json(pdf_path)
-    save_nce_mongodb(nce)
+    nces = get_nce_json(pdf_path)
+    positions = nces.apply(lambda row: nce_to_position(row))
+    save_position(positions)

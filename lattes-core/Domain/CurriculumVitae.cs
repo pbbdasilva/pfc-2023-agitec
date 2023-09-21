@@ -32,9 +32,9 @@ public class CurriculumVitae
 
 	[BsonElement("articles")] 
 	public List<string> Articles;
-	public static string GenerateFileName(string id)
+	public static string GenerateFileName(string id, string rank)
 	{
-		return $"cv_{id}.xml";
+		return $"cv_{rank}_{id}.xml";
 	}
 	
 	public CurriculumVitae(){}
