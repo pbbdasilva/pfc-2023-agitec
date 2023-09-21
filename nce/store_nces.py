@@ -55,11 +55,10 @@ def save_position(positions):
     mydb = client[DB_NAME]
     mycol = mydb[COLLECTION_NAME]
     mycol.drop()
-    mycol.insert_many()
+    mycol.insert_many(positions)
 
 
 if __name__ == '__main__':
     nces = pd.read_csv('nces.csv')
     positions = [p.to_dict() for p in nces.loc[nces['Código NCE/2023'].notnull()].apply(nce_to_position, axis=1).tolist()]
-    print(positions)
-#    save_position(positions)
+    save_position(positions)
