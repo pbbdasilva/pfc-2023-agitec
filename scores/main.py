@@ -24,7 +24,7 @@ positions = database["positions"]
 
 def get_candidates_universe(position: json) -> list:
     targetRanks = nu.position_rank_to_transparencia(nu.get_requisito_posto_nce(position))
-    requirement = position['rank']
+    requirement = position['academic_requirement']
     match requirement:
         case 'Bacharelado':
             conditions = [{'undergrad': {'$ne': None}}]
