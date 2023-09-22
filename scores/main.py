@@ -12,6 +12,7 @@ import text_similarity_scores as ts
 
 from dotenv import load_dotenv
 from general_scores import get_score_geral
+from os import getenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
