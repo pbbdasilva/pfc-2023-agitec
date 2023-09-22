@@ -95,11 +95,14 @@ def get_score_textual_similarity(position: json, candidate: dict) -> float:
 def main(position_id: string) -> pd.DataFrame:
     position = nu.get_position(positions, position_id)
     candidates = get_candidates_universe(position)
-
+    maxScore = -float('inf')
     for candidate in candidates:
         candidate['score_geral'] = get_score_geral(candidate)
         candidate['score_similaridade_textual'] = get_score_textual_similarity(position, candidate)
         candidate['score_candidato'] = candidate['score_geral'] + candidate['score_similaridade_textual']
+        maxScore = max(maxScore, float(candidate['score_candidato']))
+    candidates = list(map( lambda c: {key: 5*value/maxScore if key == 'score_candidato'
+                                      else value for key,value in c.items()}, candidates))
     candidates = pd.DataFrame(candidates).sort_values(by=['score_candidato'], ascending=False)
     debug = (getenv("debug").lower() == "true")
     if not debug:
