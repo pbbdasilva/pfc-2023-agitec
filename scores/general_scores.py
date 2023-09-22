@@ -62,5 +62,5 @@ def get_score_geral(cv: dict) -> float:
     cv['mirror']['has_doctorate'], cv['mirror']['articlesNumber'] = has_doctorate_score, articles_scores
     score = 0
     score += weights['Linguas']*language_score + weights['PossuirMestrado']*has_masters_score
-    score += weights['PossuirDoutorado']*has_doctorate_score + weights['NumeroDeMestrados']*articles_scores(cv)
+    score += weights['PossuirDoutorado']*has_doctorate_score + weights['NumeroDeMestrados']*articles_scores
     return score

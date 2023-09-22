@@ -105,6 +105,8 @@ def main(position_id: string) -> pd.DataFrame:
     if not debug:
         return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
     else:
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.max_colwidth', None)
         return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato', 'mirror']]
 
 if __name__ == "__main__":
