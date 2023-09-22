@@ -101,7 +101,7 @@ def main(position_id: string) -> pd.DataFrame:
         candidate['score_similaridade_textual'] = get_score_textual_similarity(position, candidate)
         candidate['score_candidato'] = candidate['score_geral'] + candidate['score_similaridade_textual']
         maxScore = max(maxScore, float(candidate['score_candidato']))
-    candidates = list(map( lambda c: {key: 10*value/maxScore if key == 'score_candidato'
+    candidates = list(map( lambda c: {key: 5*value/maxScore if key == 'score_candidato'
                                       else value for key,value in c.items()}, candidates))
     candidates = pd.DataFrame(candidates).sort_values(by=['score_candidato'], ascending=False)
     debug = (getenv("debug").lower() == "true")
