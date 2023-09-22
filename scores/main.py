@@ -101,9 +101,11 @@ def main(position_id: string) -> pd.DataFrame:
         candidate['score_similaridade_textual'] = get_score_textual_similarity(position, candidate)
         candidate['score_candidato'] = candidate['score_geral'] + candidate['score_similaridade_textual']
     candidates = pd.DataFrame(candidates).sort_values(by=['score_candidato'], ascending=False)
-
-    return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
-
+    debug = (getenv("debug").lower() == "true")
+    if not debug:
+        return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
+    else:
+        return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato', 'mirror']]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Rank candidate for given position')
