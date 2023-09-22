@@ -18,6 +18,7 @@ rankErrorMessage = r'''invalid rank. The available ranks are: 'Soldado-Recruta' 
                     '''
 
 url = "https://portaldatransparencia.gov.br/download-de-dados/servidores/"
+user_agent = {'User-agent': 'Mozilla/5.0'}
 
 def filter_candidates(month, year):
     try:
@@ -28,11 +29,11 @@ def filter_candidates(month, year):
         print(e)
 def fetch(url):
     try:
-        r = req.get(url)
+        r = req.get(url, headers=user_agent)
     except req.exceptions.ConnectionError as e:
         print(e)
     if r.status_code != 200:
-        print("error for {}".format(url))
+        print("error {} for {}".format(r.status_code, url))
     return r
 
 def fetch_candidates(month, year, force_fetch):
