@@ -20,10 +20,12 @@ rankErrorMessage = r'''invalid rank. The available ranks are: 'Soldado-Recruta' 
 url = "https://portaldatransparencia.gov.br/download-de-dados/servidores/"
 
 def filter_candidates(month, year):
-    df = pd.read_csv(year + month + "_Cadastro.csv", encoding = "ISO-8859-1", sep=';', engine='python')
-    filtered = df[(df['ORG_LOTACAO'] == 'Comando do Exército') & (df['DESCRICAO_CARGO'].isin(ranks))].loc[:,['NOME', 'DESCRICAO_CARGO']]
-    filtered.to_excel(year + month + "Army.xlsx", index=False)
-
+    try:
+        df = pd.read_csv(year + month + "_Cadastro.csv", encoding = "ISO-8859-1", sep=';', engine='python')
+        filtered = df[(df['ORG_LOTACAO'] == 'Comando do Exército') & (df['DESCRICAO_CARGO'].isin(ranks))].loc[:,['NOME', 'DESCRICAO_CARGO']]
+        filtered.to_excel(year + month + "Army.xlsx", index=False)
+    except FileNotFoundError as e:
+        print(e)
 def fetch(url):
     try:
         r = req.get(url)
