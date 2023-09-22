@@ -6,3 +6,4 @@ camelot-py
 pymongo
 spacy
 nltk
+python-dotenv

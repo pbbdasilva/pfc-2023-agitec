@@ -1,17 +1,30 @@
 # input: código da NCE a ser utilizada
 # output: dataframe com 2 colunas: candidatos | score_candidato
 
+import argparse
+import json
+import keyword_extraction
+import nce_utils as nu
 import pandas as pd
 import string
-import json
-from general_scores import get_score_geral
-import nce_utils as nu
-import keyword_extraction
 import text_similarity_scores as ts
+
+from dotenv import load_dotenv
+from general_scores import get_score_geral
+from os import getenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import argparse
 
+
+load_dotenv()
+weights = {
+    'Doutorado' : float(getenv("Doutorado")),
+    'Mestrado' : float(getenv("Mestrado")),
+    'Aperfeicoamento' : float(getenv("Aperfeicoamento")),
+    'Graduacao' : float(getenv("Graduacao")),
+    'Artigos' : float(getenv("Artigos")),
+    'Areas' : float(getenv("Areas")),
+}
 username = json.load(open('credentials.json'))['username']
 password = json.load(open('credentials.json'))['password']
 
@@ -41,20 +54,42 @@ def average(lst):
     return sum(lst) / len(lst)
 
 
-def get_score_textual_similarity(position: json, candidate: dict, weights: dict = None) -> float:
-    if weights is None:
-        weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
+def get_score_textual_similarity(position: json, candidate: dict) -> float:
     score = 0
     keyWords = keyword_extraction.main(position['description'][0])
-    score += float(weights['Doutorado']) * ts.get_doctorate_similarity(candidate, keyWords)
-    score += float(weights['Mestrado']) * ts.get_masters_similarity(candidate, keyWords)
-    score += float(weights['Aperfeiçoamento']) * ts.get_posgrad_similarity(candidate, keyWords)
+    candidate.setdefault('mirror',{})
 
-    score += float(weights['Artigos']) * max(ts.get_articles_similarities(candidate, keyWords))
-    score += float(weights['Graduação']) * max(ts.get_undergrad_similarities(candidate, keyWords))
-    score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
+    doctorate_sim = ts.get_doctorate_similarity(candidate, keyWords)
+    candidate['mirror']['doctorate_sim'] = doctorate_sim
+    score += float(weights['Doutorado']) * doctorate_sim
 
-    return 5 * score
+    masters_sim = ts.get_masters_similarity(candidate, keyWords)
+    candidate['mirror']['masters_sim'] = masters_sim
+    score += float(weights['Mestrado']) * masters_sim
+
+    posgrad_sim =  ts.get_posgrad_similarity(candidate, keyWords)
+    candidate['mirror']['posgrad_sim'] = posgrad_sim
+    score += float(weights['Aperfeicoamento']) *posgrad_sim
+
+    articles_sim = ts.get_articles_similarities(candidate, keyWords)
+    articles_sim_max = max(articles_sim)
+    candidate['mirror']['articles_sim'] = articles_sim
+    candidate['mirror']['articles_sim_max'] = articles_sim_max
+    score += float(weights['Artigos']) * articles_sim_max
+
+    undergrad_sim = ts.get_undergrad_similarities(candidate, keyWords)
+    undergrad_sim_max = max(undergrad_sim)
+    candidate['mirror']['undergrad_sim'] = undergrad_sim
+    candidate['mirror']['undergrad_sim_max'] = undergrad_sim_max
+    score += float(weights['Graduacao']) * undergrad_sim_max
+
+    areasList_sim = ts.get_areasList_similarities(candidate, keyWords)
+    areasList_sim_avr = average(areasList_sim)
+    candidate['mirror']['areasList_sim'] = areasList_sim
+    candidate['mirror']['areasList_sim_avr'] = areasList_sim_avr
+    score += float(weights['Areas']) * areasList_sim_avr
+
+    return score
 
 
 def main(position_id: string) -> pd.DataFrame:
@@ -66,9 +101,13 @@ def main(position_id: string) -> pd.DataFrame:
         candidate['score_similaridade_textual'] = get_score_textual_similarity(position, candidate)
         candidate['score_candidato'] = candidate['score_geral'] + candidate['score_similaridade_textual']
     candidates = pd.DataFrame(candidates).sort_values(by=['score_candidato'], ascending=False)
-
-    return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
-
+    debug = (getenv("debug").lower() == "true")
+    if not debug:
+        return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato']]
+    else:
+        pd.set_option('display.max_columns', None)
+        pd.set_option('display.max_colwidth', None)
+        return candidates.loc[:, ['author', 'score_geral', 'score_similaridade_textual', 'score_candidato', 'mirror']]
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Rank candidate for given position')
