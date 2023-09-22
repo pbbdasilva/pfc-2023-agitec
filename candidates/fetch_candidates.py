@@ -5,14 +5,10 @@ from io import BytesIO
 import zipfile
 import pandas as pd
 
-ranks = {'Soldado-Recruta', 'Aluno Org Formacao Oficiais Reserva', 'Segundo-Tenente',
-         'Cabo (engajado)', 'Terceiro-Sargento', 'Primeiro-Tenente', 'Soldado',
-         'Subtenente', 'Capitao', 'Major','Segundo-Sargento', 'Primeiro-Sargento',
-         'Coronel', 'Tenente-Coronel', 'Aluno Escola Formacao Sargentos',
-         'Cadete AMAN/Aluno IME(demais anos)', 'Aspirante-a-Oficial',
-         'General-de-Exercito', 'Aluno da Escola Cadetes(ultimo ano)',
-         'General-de-Brigada', 'General-de-Divisao', 'Taifeiro-Mor',
-         'Cadete AMAN/Aluno IME(ultimo ano)'}
+ranks = {'Segundo-Tenente','Primeiro-Tenente', 'Subtenente', 'Capitao', 
+         'Major', 'Coronel', 'Tenente-Coronel', 'Aspirante-a-Oficial',
+         'General-de-Exercito', 'General-de-Brigada', 'General-de-Divisao',
+        }
 rankErrorMessage = r'''invalid rank. The available ranks are: 'Soldado-Recruta' 'Aluno Org Formacao Oficiais Reserva'
                     'Segundo-Tenente' 'Cabo (engajado)' 'Terceiro-Sargento' 'Primeiro-Tenente' 'Soldado'
                     'Subtenente' 'Capitao' 'Major' 'Segundo-Sargento' 'Primeiro-Sargento' 'Coronel'
@@ -65,3 +61,4 @@ if __name__ == '__main__':
         exit(1)
     fetch_candidates(month, year)
     filter_candidates(month, year)
+
