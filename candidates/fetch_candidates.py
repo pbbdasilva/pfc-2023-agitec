@@ -33,9 +33,9 @@ def fetch(url):
         print("error for {}".format(url))
     return r
 
-def fetch_candidates(month, year):
+def fetch_candidates(month, year, force_fetch):
     # check if already have file for given date
-    if year + month + "_Cadastro.csv" in os.listdir(os.getcwd()):
+    if year + month + "_Cadastro.csv" in os.listdir(os.getcwd()) and not force_fetch:
         print("Already have candidates file.....skipping fetch from " + url)
         return
 
@@ -51,14 +51,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Fetch candidates from portal da transparencia')
     parser.add_argument('--month', help='Month parameter')
     parser.add_argument('--year', help='Month parameter')
+    parser.add_argument("--fetch", type=bool, default=False, help="Force fetch from url even with local files")
     args = parser.parse_args()
     month = args.month
     year = args.year
+    force_fetch = args.fetch
 
     if not month or not year:
         print("Error: Month (--month) and Year (--year) parameters are required.")
         print("Month should be used as MM (e.g. January is 01)")
         exit(1)
-    fetch_candidates(month, year)
+    fetch_candidates(month, year, force_fetch)
     filter_candidates(month, year)
 
