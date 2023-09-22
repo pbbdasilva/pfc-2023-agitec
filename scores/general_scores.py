@@ -42,6 +42,17 @@ def get_articles_scores(cv: dict) -> float:
     else:
         return len(cv['articles'])
 
-def get_score_geral(cv: dict) -> float:
+def get_score_geral(cv: dict, weightsPath) -> float:
+    weights = dict(pd.read_csv(weightsPath).to_numpy())
     #retorna a nota geral do candidato
-    return get_language_score(cv) + int(has_masters(cv)) + int(has_doctorate(cv)) + get_articles_scores(cv)
+    language_score = get_language_score(cv)
+    has_masters_score = int(has_masters(cv))
+    has_doctorate_score = int(has_doctorate(cv))
+    articles_scores = get_articles_scores(cv)
+    cv.setdefault('mirror',{})
+    cv['mirror']['languages'], cv['mirror']['has_masters']= language_score, has_masters_score
+    cv['mirror']['has_doctorate'], cv['mirror']['articlesNumber'] = has_doctorate_score, articles_scores
+    score = 0
+    score += weights['Linguas']*language_score + weights['PossuirMestrado']*has_masters_score
+    score += weights['PossuirDoutorado']*has_doctorate_score + weights['NumeroDeMestrados']*articles_scores(cv)
+    return score

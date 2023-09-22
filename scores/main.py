@@ -47,20 +47,43 @@ def average(lst):
     return sum(lst) / len(lst)
 
 
-def get_score_textual_similarity(position: json, candidate: dict, weights: dict = None) -> float:
-    if weights is None:
-        weights = dict(pd.read_excel("defaultWeights.xlsx").to_numpy())
+def get_score_textual_similarity(position: json, candidate: dict, weightsPath: string) -> float:
+    weights = dict(pd.read_csv(weightsPath).to_numpy())
     score = 0
     keyWords = keyword_extraction.main(position['description'][0])
-    score += float(weights['Doutorado']) * ts.get_doctorate_similarity(candidate, keyWords)
-    score += float(weights['Mestrado']) * ts.get_masters_similarity(candidate, keyWords)
-    score += float(weights['Aperfeiçoamento']) * ts.get_posgrad_similarity(candidate, keyWords)
+    candidate.setdefault('mirror',{})
 
-    score += float(weights['Artigos']) * max(ts.get_articles_similarities(candidate, keyWords))
-    score += float(weights['Graduação']) * max(ts.get_undergrad_similarities(candidate, keyWords))
-    score += float(weights['Áreas']) * average(ts.get_areasList_similarities(candidate, keyWords))
+    doctorate_sim = ts.get_doctorate_similarity(candidate, keyWords)
+    candidate['mirror']['doctorate_sim'] = doctorate_sim
+    score += float(weights['Doutorado']) * doctorate_sim
 
-    return 5 * score
+    masters_sim = ts.get_masters_similarity(candidate, keyWords)
+    candidate['mirror']['masters_sim'] = masters_sim
+    score += float(weights['Mestrado']) * masters_sim
+
+    posgrad_sim =  ts.get_posgrad_similarity(candidate, keyWords)
+    candidate['mirror']['posgrad_sim'] = posgrad_sim
+    score += float(weights['Aperfeiçoamento']) *posgrad_sim
+
+    articles_sim = ts.get_articles_similarities(candidate, keyWords)
+    articles_sim_max = max(articles_sim)
+    candidate['mirror']['articles_sim'] = articles_sim
+    candidate['mirror']['articles_sim_max'] = articles_sim_max
+    score += float(weights['Artigos']) * articles_sim_max
+
+    undergrad_sim = ts.get_undergrad_similarities(candidate, keyWords)
+    undergrad_sim_max = max(undergrad_sim)
+    candidate['mirror']['undergrad_sim'] = undergrad_sim
+    candidate['mirror']['undergrad_sim_max'] = undergrad_sim_max
+    score += float(weights['Graduação']) * undergrad_sim_max
+
+    areasList_sim = ts.get_areasList_similarities(candidate, keyWords)
+    areasList_sim_avr = average(areasList_sim)
+    candidate['mirror']['areasList_sim'] = areasList_sim
+    candidate['mirror']['areasList_sim_avr'] = areasList_sim_avr
+    score += float(weights['Áreas']) * areasList_sim_avr
+
+    return score
 
 
 def main(position_id: string) -> pd.DataFrame:
