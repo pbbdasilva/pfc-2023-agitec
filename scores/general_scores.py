@@ -1,7 +1,16 @@
+from dotenv import load_dotenv
+from os import getenv
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from enum import Enum
- 
+
+load_dotenv()
+weights = {
+    'Linguas' : float(getenv("Linguas")),
+    'PossuirMestrado' : float(getenv("PossuirMestrado")),
+    'PossuirDoutorado' : float(getenv("PossuirDoutorado")),
+    'NumeroDeMestrados' : float(getenv("NumeroDeMestrados")),
+}
 
 class Nivel(Enum):
     #atributos de cada linguagem
@@ -42,8 +51,7 @@ def get_articles_scores(cv: dict) -> float:
     else:
         return len(cv['articles'])
 
-def get_score_geral(cv: dict, weightsPath) -> float:
-    weights = dict(pd.read_csv(weightsPath).to_numpy())
+def get_score_geral(cv: dict) -> float:
     #retorna a nota geral do candidato
     language_score = get_language_score(cv)
     has_masters_score = int(has_masters(cv))

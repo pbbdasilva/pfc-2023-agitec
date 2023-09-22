@@ -5,7 +5,6 @@ import argparse
 import json
 import keyword_extraction
 import nce_utils as nu
-import os
 import pandas as pd
 import string
 import text_similarity_scores as ts
@@ -18,7 +17,14 @@ from pymongo.server_api import ServerApi
 
 
 load_dotenv()
-
+weights = {
+    'Doutorado' : float(getenv("Doutorado")),
+    'Mestrado' : float(getenv("Mestrado")),
+    'Aperfeicoamento' : float(getenv("Aperfeicoamento")),
+    'Graduacao' : float(getenv("Graduacao")),
+    'Artigos' : float(getenv("Artigos")),
+    'Areas' : float(getenv("Areas")),
+}
 username = json.load(open('credentials.json'))['username']
 password = json.load(open('credentials.json'))['password']
 
@@ -48,8 +54,7 @@ def average(lst):
     return sum(lst) / len(lst)
 
 
-def get_score_textual_similarity(position: json, candidate: dict, weightsPath: string) -> float:
-    weights = dict(pd.read_csv(weightsPath).to_numpy())
+def get_score_textual_similarity(position: json, candidate: dict) -> float:
     score = 0
     keyWords = keyword_extraction.main(position['description'][0])
     candidate.setdefault('mirror',{})
@@ -64,7 +69,7 @@ def get_score_textual_similarity(position: json, candidate: dict, weightsPath: s
 
     posgrad_sim =  ts.get_posgrad_similarity(candidate, keyWords)
     candidate['mirror']['posgrad_sim'] = posgrad_sim
-    score += float(weights['Aperfeiçoamento']) *posgrad_sim
+    score += float(weights['Aperfeicoamento']) *posgrad_sim
 
     articles_sim = ts.get_articles_similarities(candidate, keyWords)
     articles_sim_max = max(articles_sim)
@@ -76,13 +81,13 @@ def get_score_textual_similarity(position: json, candidate: dict, weightsPath: s
     undergrad_sim_max = max(undergrad_sim)
     candidate['mirror']['undergrad_sim'] = undergrad_sim
     candidate['mirror']['undergrad_sim_max'] = undergrad_sim_max
-    score += float(weights['Graduação']) * undergrad_sim_max
+    score += float(weights['Graduacao']) * undergrad_sim_max
 
     areasList_sim = ts.get_areasList_similarities(candidate, keyWords)
     areasList_sim_avr = average(areasList_sim)
     candidate['mirror']['areasList_sim'] = areasList_sim
     candidate['mirror']['areasList_sim_avr'] = areasList_sim_avr
-    score += float(weights['Áreas']) * areasList_sim_avr
+    score += float(weights['Areas']) * areasList_sim_avr
 
     return score
 

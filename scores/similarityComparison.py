@@ -1,8 +1,9 @@
-import spacy
-from nltk.corpus import stopwords
 import bisect
+import spacy
 from abc import ABC, abstractmethod
-#nlp_en = spacy.load('en_core_web_lg')
+from dotenv import load_dotenv
+from nltk.corpus import stopwords
+from os import getenv
 nlp_pt = spacy.load('pt_core_news_lg') 
 
 class IComparator(ABC):
@@ -11,12 +12,12 @@ class IComparator(ABC):
         pass
 
 class BestMatchsComparator(IComparator):
-    def __init__(self, maxBestMatches: int = 10, keyOrderImportance: float = 0.2, prominentPower: float = 2,
-                  debug: bool = False):
-        self.maxBestMatches = maxBestMatches
-        self.keyOrderImportance = keyOrderImportance
-        self.prominentPower = prominentPower
-        self.debug = debug
+    def __init__(self):
+        load_dotenv()
+        self.maxBestMatches = int(getenv("maxBestMatches"))
+        self.keyOrderImportance = float(getenv("keyOrderImportance"))
+        self.prominentPower = float(getenv("prominentPower"))
+        self.debug = (getenv("debug").lower() == "true")
         
     def extractBest(self, tokens, keyTokens):
         """
