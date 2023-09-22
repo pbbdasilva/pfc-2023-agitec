@@ -1,16 +1,22 @@
 # input: código da NCE a ser utilizada
 # output: dataframe com 2 colunas: candidatos | score_candidato
 
+import argparse
+import json
+import keyword_extraction
+import nce_utils as nu
+import os
 import pandas as pd
 import string
-import json
-from general_scores import get_score_geral
-import nce_utils as nu
-import keyword_extraction
 import text_similarity_scores as ts
+
+from dotenv import load_dotenv
+from general_scores import get_score_geral
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import argparse
+
+
+load_dotenv()
 
 username = json.load(open('credentials.json'))['username']
 password = json.load(open('credentials.json'))['password']
