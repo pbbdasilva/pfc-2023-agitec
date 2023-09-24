@@ -18,7 +18,7 @@ rankErrorMessage = r'''invalid rank. The available ranks are: 'Soldado-Recruta' 
                     '''
 
 url = "https://portaldatransparencia.gov.br/download-de-dados/servidores/"
-user_agent = {'User-agent': 'Mozilla/5.0'}
+user_agent = {'User-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0'}
 
 def filter_candidates(month, year):
     try:
@@ -26,7 +26,7 @@ def filter_candidates(month, year):
         filtered = df[(df['ORG_LOTACAO'] == 'Comando do Exército') & (df['DESCRICAO_CARGO'].isin(ranks))].loc[:,['NOME', 'DESCRICAO_CARGO']]
         filtered.to_excel(year + month + "Army.xlsx", index=False)
     except FileNotFoundError as e:
-        print(e)
+        print("run --fetch True")
 def fetch(url):
     try:
         r = req.get(url, headers=user_agent)
