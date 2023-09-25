@@ -2,6 +2,7 @@ import pandas as pd
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import json
+import string
 
 DB_NAME = "lattes"
 COLLECTION_NAME = "positions"
@@ -23,11 +24,15 @@ class Position:
         }
 
 
-def get_academic_requirement(nce_id: json) -> str | None:
+def get_academic_requirement(nce_id: string) -> str | None:
     if not nce_id:
         return None
 
-    req_type = nce_id[2]
+    for char in nce_id:
+        if char in string.ascii_letters:
+            req_type = char
+            break
+
     if req_type == 'M':  # denota uma vaga de mestrado
         requirement = 'Bacharelado'
     elif req_type == 'D':  # denota uma vaga de doutorado
