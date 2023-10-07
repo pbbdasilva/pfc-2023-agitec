@@ -4,7 +4,7 @@ ghostscript==0.7
 nltk==3.8.1
 numba==0.55.1
 numpy==1.21.6
-opencv-python==4.8.0.76
+opencv-python==4.8.0.74
 openpyxl==3.1.2
 outcome==1.2.0
 pandas==1.5.3
